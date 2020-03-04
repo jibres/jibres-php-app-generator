@@ -1,8 +1,8 @@
 <?php
 
-require_once "fetcher.php";
-require_once "code.php";
-require_once "replacer.php";
+require_once "lib/fetcher.php";
+require_once "lib/code.php";
+require_once "lib/replacer.php";
 
 class jibresAppGenerator
 {
@@ -11,24 +11,26 @@ class jibresAppGenerator
 
 	public static function run()
 	{
-		if(file_exists("define.php"))
+		if(file_exists("lib/define.php"))
 		{
-			require_once "define.php";
+			require_once "lib/define.php";
 		}
 		else
 		{
 			self::msg('define variables!', false);
 		}
+
 		// get data
-		jibresAppFetcher::get_api_data();
+		jibresAppFetcher::fetchAPI();
 		// fill data
-		jibresAppReplacer::replaceVariables();
+		jibresAppReplacer::replaceVar();
 		// run gradle
 
 		// copy apk
 
 		// call finish
 	}
+
 
 	public static function store($_store = null)
 	{
@@ -38,6 +40,7 @@ class jibresAppGenerator
 		}
 		return self::$STORE;
 	}
+
 
 	public static function apiData($_data = null)
 	{

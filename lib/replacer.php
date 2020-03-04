@@ -3,7 +3,7 @@
 
 class jibresAppReplacer
 {
-	public function replaceVariables()
+	public function replaceVar()
 	{
 		// replace app/gradle.properties
 		$myAppID = 'com.jibres.'. jibresAppGenerator::store();
@@ -34,7 +34,7 @@ class jibresAppReplacer
 
 		if(!file_exists($fileAddr))
 		{
-			jibresAppGenerator::msg('ini not found! '. $_file, false);
+			jibresAppCode::msg('ini not found! '. $_file, false);
 			return null;
 		}
 

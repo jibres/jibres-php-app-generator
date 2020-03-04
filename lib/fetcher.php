@@ -2,7 +2,7 @@
 
 class jibresAppFetcher
 {
-	public static function get_api_data()
+	public static function fetchAPI()
 	{
 		// get store id
 		$myStore = self::getQueue(CORE_QUEUE);
