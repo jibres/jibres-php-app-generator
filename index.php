@@ -13,7 +13,7 @@ class jibresAppGenerator
 		}
 		else
 		{
-			self::jsonBoom(['ok' => false, 'result' => 'define variables!']);
+			self::msg('define variables!', false);
 		}
 
 		$myStore = self::getQueue(CORE_QUEUE);
@@ -26,16 +26,42 @@ class jibresAppGenerator
 		$android_api = self::getQueue(self::create_api_link(API_ANDROID));
 		var_dump($android_api);
 
+		// app id
+		$myAppID = 'com.jibres.'. self::$STORE;
+		self::replace_ini(APP_FOLDER. 'app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 	}
 
 
+	private static function replace_ini($_file, $_replace)
+	{
+		if(!file_exists($_file))
+		{
+			return null;
+		}
 
-	function create_api_link($_url)
+		// Parse the file assuming it's structured as an INI file.
+		// http://php.net/manual/en/function.parse-ini-file.php
+		$data = parse_ini_file($_file);
+		$fileData = '';
+
+		foreach($data as $key => $value)
+		{
+			$fileData .= $key. '='. $value. PHP_EOL;
+		}
+
+		file_put_contents($_file, $fileData);
+
+		return true;
+	}
+
+
+	private static function create_api_link($_url)
 	{
 		return str_replace(':store', self::$STORE, $_url);
 	}
 
-	function getQueue($_url)
+
+	private static function getQueue($_url)
 	{
 		$ch = curl_init();
 
@@ -90,6 +116,11 @@ class jibresAppGenerator
 	{
 		// change header
 		exit($_string);
+	}
+
+	public static function msg($_txt = null, $_status)
+	{
+		self::jsonBoom(['ok'=> $_status, 'result'=> $_txt]);
 	}
 
 	public static function jsonBoom($_result = null)
