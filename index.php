@@ -4,6 +4,7 @@ require_once "define.php";
 
 class jibresAppGenerator
 {
+	private static $STORE = null;
 
 	function run()
 	{
@@ -25,7 +26,7 @@ class jibresAppGenerator
 		curl_setopt($ch, CURLOPT_URL, $apiURL);
 		// turn on some setting
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POST, false);
 		// turn off some setting
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -34,22 +35,44 @@ class jibresAppGenerator
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
-		$result = curl_exec($ch);
+		$response = curl_exec($ch);
 		$mycode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$myResponse = null;
+		$myResult = null;
 		// error on result
-		if ($result === false)
+		if ($response === false)
 		{
 			self::boboom(curl_error($ch). ':'. curl_errno($ch), true);
 		}
 		// empty result
-		if (empty($result) || is_null($result) || !$result)
+		if (empty($response) || is_null($response) || !$response)
 		{
 			self::boboom('Empty server response', true);
 		}
 		curl_close($ch);
 
-		// show result with jsonBoom
-		self::jsonBoom($result, true);
+		if(substr($response, 0, 1) === "{")
+		{
+			$myResponse = json_decode($response, JSON_UNESCAPED_UNICODE);
+		}
+
+		if(isset($myResponse['ok']))
+		{
+			if($myResponse['ok'] === true)
+			{
+				if(isset($myResponse['result']))
+				{
+					$myResult = $myResponse['result'];
+				}
+			}
+		}
+		if(isset($myResult['store']) && $myResult['store'])
+		{
+			self::$STORE = $myResult['store'];
+			return $myResult['store'];
+		}
+
+		self::jsonBoom($response);
 	}
 
 
