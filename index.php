@@ -28,7 +28,7 @@ class jibresAppGenerator
 	}
 
 
-	private static get_api_data()
+	private static function get_api_data()
 	{
 		// get store id
 		$myStore = self::getQueue(CORE_QUEUE);
@@ -47,14 +47,30 @@ class jibresAppGenerator
 	{
 		// replace app/gradle.properties
 		$myAppID = 'com.jibres.'. self::$STORE;
-		self::replace_ini(APP_FOLDER. '/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
+		self::replace_ini('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 
 	}
 
+	private static function replace_logo()
+	{
+
+	}
+
+	private static function replace_endpoint($jibres_main_app)
+	{
+		if($jibres_main_app)
+		{
+
+		}
+		else
+		{
+
+		}
+	}
 
 	private static function replace_ini($_file, $_replace)
 	{
-		$fileAddr = realpath($_file);
+		$fileAddr = realpath(APP_FOLDER. $_file);
 
 		if(!file_exists($fileAddr))
 		{
