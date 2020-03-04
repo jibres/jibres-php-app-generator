@@ -48,7 +48,14 @@ class jibresAppGenerator
 
 		foreach($data as $key => $value)
 		{
-			$fileData .= $key. '='. $value. PHP_EOL;
+			if(isset($_replace[$key]) && $_replace[$key] !== $value)
+			{
+				$fileData .= $key. '='. $_replace[$key]. PHP_EOL;
+			}
+			else
+			{
+				$fileData .= $key. '='. $value. PHP_EOL;
+			}
 		}
 
 		file_put_contents($fileAddr, $fileData);
