@@ -4,8 +4,9 @@
 class jibresAppGenerator
 {
 	private static $STORE = null;
+	private static $API_DATA = null;
 
-	function run()
+	public static function run()
 	{
 		if(file_exists("define.php"))
 		{
@@ -15,19 +16,39 @@ class jibresAppGenerator
 		{
 			self::msg('define variables!', false);
 		}
+		// get data
+		self::get_api_data();
+		// fill data
+		self::replaceVariables();
+		// run gradle
 
+		// copy apk
+
+		// call finish
+	}
+
+
+	private static get_api_data()
+	{
+		// get store id
 		$myStore = self::getQueue(CORE_QUEUE);
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			self::$STORE = $myStore['result']['store'];
 		}
+		// get store api android
+		self::$API_DATA = self::getQueue(self::create_api_link(API_ANDROID));
+		// get store api android intro
+		// get store api android splash
+	}
 
-		$android_api = self::getQueue(self::create_api_link(API_ANDROID));
-		// var_dump($android_api);
 
-		// app id
+	private function replaceVariables()
+	{
+		// replace app/gradle.properties
 		$myAppID = 'com.jibres.'. self::$STORE;
 		self::replace_ini(APP_FOLDER. '/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
+
 	}
 
 
