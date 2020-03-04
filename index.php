@@ -21,14 +21,13 @@ class jibresAppGenerator
 		{
 			self::$STORE = $myStore['result']['store'];
 		}
-		var_dump(self::$STORE);
 
 		$android_api = self::getQueue(self::create_api_link(API_ANDROID));
-		var_dump($android_api);
+		// var_dump($android_api);
 
 		// app id
 		$myAppID = 'com.jibres.'. self::$STORE;
-		self::replace_ini(APP_FOLDER. 'app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
+		self::replace_ini(APP_FOLDER. 'app\gradle.properties', ['APPLICATION_ID' => $myAppID]);
 	}
 
 
@@ -36,6 +35,7 @@ class jibresAppGenerator
 	{
 		if(!file_exists($_file))
 		{
+			self::msg('ini not found! '. $_file, false);
 			return null;
 		}
 
