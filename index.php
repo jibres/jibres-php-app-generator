@@ -1,6 +1,5 @@
 <?php
 
-require_once "define.php";
 
 class jibresAppGenerator
 {
@@ -8,6 +7,15 @@ class jibresAppGenerator
 
 	function run()
 	{
+		if(file_exists("define.php"))
+		{
+			require_once "define.php";
+		}
+		else
+		{
+			self::jsonBoom(['ok' => false, 'result' => 'define variables!']);
+		}
+
 		$myStore = self::getQueue(CORE_QUEUE);
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
