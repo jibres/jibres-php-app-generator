@@ -27,13 +27,15 @@ class jibresAppGenerator
 
 		// app id
 		$myAppID = 'com.jibres.'. self::$STORE;
-		self::replace_ini(APP_FOLDER. 'app\gradle.properties', ['APPLICATION_ID' => $myAppID]);
+		self::replace_ini(APP_FOLDER. '/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 	}
 
 
 	private static function replace_ini($_file, $_replace)
 	{
-		if(!file_exists($_file))
+		$fileAddr = realpath($_file);
+
+		if(!file_exists($fileAddr))
 		{
 			self::msg('ini not found! '. $_file, false);
 			return null;
@@ -41,7 +43,7 @@ class jibresAppGenerator
 
 		// Parse the file assuming it's structured as an INI file.
 		// http://php.net/manual/en/function.parse-ini-file.php
-		$data = parse_ini_file($_file);
+		$data = parse_ini_file($fileAddr);
 		$fileData = '';
 
 		foreach($data as $key => $value)
@@ -49,7 +51,7 @@ class jibresAppGenerator
 			$fileData .= $key. '='. $value. PHP_EOL;
 		}
 
-		file_put_contents($_file, $fileData);
+		file_put_contents($fileAddr, $fileData);
 
 		return true;
 	}
