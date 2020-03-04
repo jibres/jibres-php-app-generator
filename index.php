@@ -8,11 +8,26 @@ class jibresAppGenerator
 
 	function run()
 	{
-		self::getQueue();
+		$myStore = self::getQueue(CORE_QUEUE);
+		if(isset($myStore['result']['store']) && $myStore['result']['store'])
+		{
+			self::$STORE = $myStore['result']['store'];
+		}
+		var_dump(self::$STORE);
+
+		$android_api = self::getQueue(self::create_api_link(API_ANDROID));
+		var_dump($android_api);
+
 	}
 
 
-	function getQueue()
+
+	function create_api_link($_url)
+	{
+		return str_replace(':store', self::$STORE, $_url);
+	}
+
+	function getQueue($_url)
 	{
 		$ch = curl_init();
 
@@ -20,10 +35,8 @@ class jibresAppGenerator
 		{
 			self::boboom('Curl failed to initialize');
 		}
-		// set some settings of curl
-		$apiURL = API_URL;
 
-		curl_setopt($ch, CURLOPT_URL, $apiURL);
+		curl_setopt($ch, CURLOPT_URL, $_url);
 		// turn on some setting
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POST, false);
@@ -50,26 +63,15 @@ class jibresAppGenerator
 			self::boboom('Empty server response', true);
 		}
 		curl_close($ch);
-
 		if(substr($response, 0, 1) === "{")
 		{
 			$myResponse = json_decode($response, JSON_UNESCAPED_UNICODE);
 		}
+		return $myResponse;
 
 		if(isset($myResponse['ok']))
 		{
-			if($myResponse['ok'] === true)
-			{
-				if(isset($myResponse['result']))
-				{
-					$myResult = $myResponse['result'];
-				}
-			}
-		}
-		if(isset($myResult['store']) && $myResult['store'])
-		{
-			self::$STORE = $myResult['store'];
-			return $myResult['store'];
+			return $myResponse;
 		}
 
 		self::jsonBoom($response);
