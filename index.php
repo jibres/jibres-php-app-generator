@@ -26,6 +26,9 @@ class jibresAppGenerator
 		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
 		define('THIS', realpath(__DIR__));
 
+		// 1. check busy mode
+		jibresAppCode::busy(true);
+
 		// 2. get data
 		jibresAppFetcher::run();
 
@@ -33,14 +36,20 @@ class jibresAppGenerator
 		self::buildApp();
 
 		// 4. copy apk
-		$target = __DIR__. '/public_html/v'. self::version(true);
-		$target .= '/jibres-'.self::store().'-v'. self::version(). '.apk';
-		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $target, 'apk');
+		$myVersion = 'v'. self::version(true);
+		$myVersion .= '/jibres-'.self::store();
+		$myVersion .= '-v'. self::version(). '.apk';
+
+		$myTarget  = __DIR__. '/public_html/'. $myVersion;
+		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
 
 		// 5. call finish
-		jibresAppFetcher::done(self::store());
+		jibresAppFetcher::done(self::store(), $myVersion);
 
-		// 6. show finish message
+		// 6. free busy mode
+		jibresAppCode::busy(false);
+
+		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
 	}
 
