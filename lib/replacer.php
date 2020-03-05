@@ -50,18 +50,28 @@ class jibresAppReplacer
 		$myAddr = APP_FOLDER. $_addr;
 		if($_copy)
 		{
-			$file_headers = @get_headers($file);
-			if(file_exists($_data))
+			if($_copy === 'apk')
 			{
-				copy($_data, $myAddr);
-			}
-			elseif($file_headers[0] != 'HTTP/1.1 404 Not Found')
-			{
-				copy($_data, $myAddr);
+				if(file_exists($_data))
+				{
+					copy($_data, $myAddr);
+				}
+				else
+				{
+					jibresAppCode::msg('APK is not exist! '. $_data, true);
+				}
 			}
 			else
 			{
-				jibresAppCode::msg('Copy source is not exist! '. $_data, true);
+				$file_headers = @get_headers($_data);
+				if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+				{
+					jibresAppCode::msg('Copy source is not exist URL! '. $_data, true);
+				}
+				else
+				{
+					copy($_data, $myAddr);
+				}
 			}
 		}
 		else
