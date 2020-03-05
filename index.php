@@ -20,14 +20,17 @@ class jibresAppGenerator
 		{
 			self::msg('define variables!', false);
 		}
+		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-AndroidApp'));
 
 		// get data
 		jibresAppFetcher::run();
 		// run gradle
 
 		// copy apk
-
+		// copy(APP_FOLDER, $myAddr);
 		// call finish
+
+		jibresAppCode::msg('Finish Successfull', true);
 	}
 
 

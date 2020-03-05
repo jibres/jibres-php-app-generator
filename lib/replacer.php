@@ -47,10 +47,7 @@ class jibresAppReplacer
 
 	public static function fill($_addr, $_data, $_copy = null)
 	{
-		// create path
-		$myAddr = realpath(__DIR__ . '/../../Jibres-AndroidApp');
-		$myAddr .= $_addr;
-
+		$myAddr = APP_FOLDER. $_addr;
 		if($_copy)
 		{
 			copy($_data, $myAddr);
@@ -64,9 +61,7 @@ class jibresAppReplacer
 
 	private static function gradle($_file, $_replace)
 	{
-		$fileAddr = realpath(__DIR__ . '/../../Jibres-AndroidApp');
-		$fileAddr .= $_file;
-
+		$fileAddr = APP_FOLDER. $_file;
 
 		if(!file_exists($fileAddr))
 		{
