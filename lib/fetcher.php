@@ -30,7 +30,7 @@ class jibresAppFetcher
 		if(isset($android_api['result']['logo']['icon']))
 		{
 			$myLogo = $android_api['result']['logo']['icon'];
-			if(substr($myLogo, -3) === 'png')
+			if(is_string($myLogo) && substr($myLogo, -3) === 'png')
 			{
 				jibresAppReplacer::logo($myLogo);
 			}
