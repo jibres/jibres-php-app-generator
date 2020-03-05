@@ -58,7 +58,7 @@ class jibresAppReplacer
 					// dir doesn't exist, make it
 					mkdir($myDir, 0775, true);
 				}
-				if(file_exists($_data))
+				if(file_exists($myAddr))
 				{
 					copy($_data, $myAddr);
 				}
