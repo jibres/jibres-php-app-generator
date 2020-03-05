@@ -8,6 +8,7 @@ class jibresAppGenerator
 {
 	private static $STORE = null;
 	private static $API_DATA = null;
+	private static $VERSION = 1;
 
 
 	public static function run()
@@ -27,7 +28,12 @@ class jibresAppGenerator
 		// run gradle
 
 		// copy apk
-		// copy(APP_FOLDER, $myAddr);
+
+		$target = __DIR__. '/public_html/v'. self::$VERSION;
+		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
+		var_dump($target);
+		exit();
+		jibresAppReplacer::fill('app/build/outputs/apk/release/app-release.apk', $target, true);
 		// call finish
 
 		jibresAppCode::msg('Finish Successfull', true);
@@ -41,18 +47,6 @@ class jibresAppGenerator
 			self::$STORE = $_store;
 			// replace store
 			jibresAppReplacer::store($_store);
-		}
-		return self::$STORE;
-	}
-
-
-	public static function jibres($_jibresMode = false)
-	{
-		if($_jibresMode !== false)
-		{
-			self::$STORE = $_jibresMode;
-			// replace store
-			jibresAppReplacer::store($_jibresMode);
 		}
 		return self::$STORE;
 	}
