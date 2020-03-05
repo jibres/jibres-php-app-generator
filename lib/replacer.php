@@ -50,7 +50,12 @@ class jibresAppReplacer
 		$myAddr = APP_FOLDER. $_addr;
 		if($_copy)
 		{
+			$file_headers = @get_headers($file);
 			if(file_exists($_data))
+			{
+				copy($_data, $myAddr);
+			}
+			elseif($file_headers[0] != 'HTTP/1.1 404 Not Found')
 			{
 				copy($_data, $myAddr);
 			}
