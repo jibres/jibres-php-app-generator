@@ -21,7 +21,7 @@ class jibresAppGenerator
 		{
 			self::msg('define variables!', false);
 		}
-		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-AndroidApp'));
+		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
 		define('THIS', realpath(__DIR__));
 
 		// 2. get data
