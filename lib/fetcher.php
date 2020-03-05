@@ -37,7 +37,7 @@ class jibresAppFetcher
 			else
 			{
 				// we need png logo
-				// jibresAppCode::msg('Logo is not in PNG format!', false);
+				jibresAppCode::msg('Logo is not in PNG format!', false);
 			}
 		}
 		else
