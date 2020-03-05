@@ -11,9 +11,13 @@ class jibresAppReplacer
 		$myAppID = 'com.jibres.'. $_store;
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 
+	}
+
+	public static function appName($_name)
+	{
 		// fill app name
 		$appName = '<?xml version="1.0" encoding="utf-8"?><resources><string name="app_name">';
-		$appName .= $_store;
+		$appName .= $_name;
 		$appName .= '</string></resources>';
 		self::fill('/app/src/main/res/values/app_name.xml', $appName);
 	}

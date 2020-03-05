@@ -26,6 +26,26 @@ class jibresAppFetcher
 
 		// get store api android
 		$android_api = self::get_api_data($endPoint. '/android', true);
+
+		// set title
+		if(isset($android_api['result']['title']))
+		{
+			$myTitle = $android_api['result']['title'];
+			if(is_string($myTitle))
+			{
+				jibresAppReplacer::appName($myTitle);
+			}
+			else
+			{
+				// we need png logo
+				jibresAppCode::msg('Title is not string!', false);
+			}
+		}
+		else
+		{
+			jibresAppCode::msg('Title is not set!', false);
+		}
+
 		// set logo
 		if(isset($android_api['result']['logo']['icon']))
 		{
