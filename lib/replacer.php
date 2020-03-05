@@ -6,9 +6,16 @@ class jibresAppReplacer
 	{
 		// fill in store id file
 		self::fill('/app/src/main/assets/secret/store.txt', $_store);
+
 		// create application id
 		$myAppID = 'com.jibres.'. $_store;
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
+
+		// fill app name
+		$appName = '<?xml version="1.0" encoding="utf-8"?><resources><string name="app_name">';
+		$appName .= $_store;
+		$appName .= '</string></resources>';
+		self::fill('/app/src/main/res/values/app_name.xml', $appName);
 	}
 
 
@@ -37,6 +44,7 @@ class jibresAppReplacer
 		return $myEndpoint;
 	}
 
+
 	public static function fill($_addr, $_data, $_copy = null)
 	{
 		// create path
@@ -52,6 +60,7 @@ class jibresAppReplacer
 			file_put_contents($myAddr, $_data);
 		}
 	}
+
 
 	private static function gradle($_file, $_replace)
 	{

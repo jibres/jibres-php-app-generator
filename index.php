@@ -9,6 +9,7 @@ class jibresAppGenerator
 	private static $STORE = null;
 	private static $API_DATA = null;
 
+
 	public static function run()
 	{
 		if(file_exists("lib/define.php"))
@@ -52,6 +53,7 @@ class jibresAppGenerator
 		}
 		return self::$STORE;
 	}
+
 
 	public static function apiData($_data = null)
 	{
