@@ -13,14 +13,14 @@ class jibresAppGenerator
 
 	public static function run()
 	{
-		if(file_exists("lib/define.php"))
-		{
-			require_once "lib/define.php";
-		}
-		else
-		{
-			self::msg('define variables!', false);
-		}
+		// if(file_exists("lib/define.php"))
+		// {
+		// 	require_once "lib/define.php";
+		// }
+		// else
+		// {
+		// 	jibresAppCode::msg('define variables!', false);
+		// }
 		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
 		define('THIS', realpath(__DIR__));
 
