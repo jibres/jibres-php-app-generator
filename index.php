@@ -44,7 +44,7 @@ class jibresAppGenerator
 
 	private static function buildApp()
 	{
-		$cmd_runGradle = APP_FOLDER.'/gradlew assembleRelease';
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, 'build');
 	}
