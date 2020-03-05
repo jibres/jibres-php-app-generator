@@ -12,7 +12,7 @@ class jibresAppCode
 
 	public static function msg($_txt = null, $_status)
 	{
-		self::jsonBoom(['ok'=> $_status, 'result'=> $_txt]);
+		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
 	}
 
 

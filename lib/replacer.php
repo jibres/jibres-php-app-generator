@@ -13,7 +13,7 @@ class jibresAppReplacer
 	}
 
 
-	private static function store($_store)
+	public static function store($_store)
 	{
 		self::fill('/app/src/main/assets/secret/store.txt', $_store);
 	}
@@ -25,7 +25,7 @@ class jibresAppReplacer
 	}
 
 
-	private static function endpoint($_storeMode, $_store = null)
+	public static function endpoint($_storeMode, $_store = null)
 	{
 		$myEndpoint = 'https://core.jibres.com/r10';
 		if($_storeMode)
