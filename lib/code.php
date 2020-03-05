@@ -15,6 +15,18 @@ class jibresAppCode
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
 	}
 
+	public static function log($_data, $_type = null)
+	{
+		if($_type)
+		{
+			error_log($_data, 0, THIS. "/tmp/log/". $_type. ".log");
+		}
+		else
+		{
+			error_log($_data, 0, THIS. "/tmp/log/access.log");
+		}
+	}
+
 
 	public static function jsonBoom($_result = null)
 	{

@@ -22,22 +22,32 @@ class jibresAppGenerator
 			self::msg('define variables!', false);
 		}
 		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-AndroidApp'));
+		define('THIS', realpath(__DIR__));
 
-		// get data
+		// 2. get data
 		jibresAppFetcher::run();
-		// run gradle
 
-		// copy apk
+		// 3. run gradle
+		self::buildApp();
+
+		// 4. copy apk
 		$target = __DIR__. '/public_html/v'. self::$VERSION;
 		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
 		jibresAppReplacer::fill('app/build/outputs/apk/release/app-release.apk', $target, true);
 
-		// call finish
+		// 5. call finish
 		jibresAppFetcher::done(self::store());
 
+		// 6. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
 	}
 
+	private static function buildApp()
+	{
+		$cmd_runGradle = APP_FOLDER.'/gradlew assembleRelease';
+		$output = shell_exec($cmd_runGradle);
+		jibresAppCode::log($output, 'build');
+	}
 
 	public static function store($_store = false)
 	{
