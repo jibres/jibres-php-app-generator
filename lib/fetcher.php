@@ -2,16 +2,19 @@
 
 class jibresAppFetcher
 {
+	private static $API_ANDROID = 'https://api.jibres.com/:store/v2/android';
+	private static $CORE_ANDROID = 'https://core.jibres.com/r10/android';
+
 	public static function fetchAPI()
 	{
 		// get store id
-		$myStore = self::getQueue(CORE_QUEUE);
+		$myStore = self::getQueue('https://core.jibres.com/r10/queue/app');
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			jibresAppGenerator::STORE($myStore['result']['store']);
 		}
 		// get store api android
-		$a = self::getQueue(self::create_api_link(API_ANDROID));
+		$a = self::getQueue(self::create_api_link(self::$API_ANDROID));
 		jibresAppGenerator::apiData($a);
 		// get store api android intro
 		// get store api android splash

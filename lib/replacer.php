@@ -3,8 +3,11 @@
 
 class jibresAppReplacer
 {
+	private static $APP_FOLDER = null;
 	public function replaceVar()
 	{
+		self::$APP_FOLDER = realpath(__DIR__ . '/../../Jibres-AndroidApp');
+
 		// replace app/gradle.properties
 		$myAppID = 'com.jibres.'. jibresAppGenerator::store();
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
@@ -14,13 +17,13 @@ class jibresAppReplacer
 
 	private static function store()
 	{
-		$fileAddr = APP_FOLDER. '/app/src/main/assets/secret/store.txt';
+		$fileAddr = self::$APP_FOLDER. '/app/src/main/assets/secret/store.txt';
 		file_put_contents($fileAddr, jibresAppGenerator::store());
 	}
 
 	private static function logo($_logoURL)
 	{
-		copy($_logoURL, APP_FOLDER. '/app/src/main/res/drawable/logo.png');
+		copy($_logoURL, self::$APP_FOLDER. '/app/src/main/res/drawable/logo.png');
 	}
 
 	private static function endpoint($jibres_main_app)
@@ -37,7 +40,7 @@ class jibresAppReplacer
 
 	private static function gradle($_file, $_replace)
 	{
-		$fileAddr = realpath(APP_FOLDER. $_file);
+		$fileAddr = realpath(self::$APP_FOLDER. $_file);
 
 		if(!file_exists($fileAddr))
 		{
