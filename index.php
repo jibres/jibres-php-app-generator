@@ -7,7 +7,6 @@ require_once "lib/replacer.php";
 class jibresAppGenerator
 {
 	private static $STORE = null;
-	private static $JIBRES_APP = null;
 	private static $API_DATA = null;
 
 	public static function run()
@@ -22,9 +21,7 @@ class jibresAppGenerator
 		}
 
 		// get data
-		jibresAppFetcher::fetchAPI();
-		// fill data
-		jibresAppReplacer::replaceVar();
+		jibresAppFetcher::run();
 		// run gradle
 
 		// copy apk

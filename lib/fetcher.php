@@ -2,22 +2,21 @@
 
 class jibresAppFetcher
 {
-	private static $API_ANDROID = 'https://api.jibres.com/:store/v2/android';
-	private static $CORE_ANDROID = 'https://core.jibres.com/r10/android';
-
-	public static function fetchAPI()
+	public static function run()
 	{
 		// get store id
 		$myStore = self::get_api_data('https://core.jibres.com/r10/queue/app', true);
+		$endPoint = null;
+		// get store
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			jibresAppGenerator::STORE($myStore['result']['store']);
-			jibresAppReplacer::endpoint(true, $myStore['result']['store']);
+			$endPoint = jibresAppReplacer::endpoint(true, $myStore['result']['store']);
 		}
 		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
 		{
 			jibresAppGenerator::STORE(null);
-			jibresAppReplacer::endpoint(null);
+			$endPoint = jibresAppReplacer::endpoint(null);
 		}
 		else
 		{
@@ -25,16 +24,10 @@ class jibresAppFetcher
 		}
 
 		// get store api android
-		$a = self::get_api_data(self::create_api_link(self::$API_ANDROID));
-		jibresAppGenerator::apiData($a);
+		$android_api = self::get_api_data($endPoint. '/android');
+		jibresAppGenerator::apiData($android_api);
 		// get store api android intro
 		// get store api android splash
-	}
-
-
-	private static function create_api_link($_url)
-	{
-		return str_replace(':store', jibresAppGenerator::STORE(), $_url);
 	}
 
 

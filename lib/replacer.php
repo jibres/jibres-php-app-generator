@@ -7,15 +7,17 @@ class jibresAppReplacer
 	public function replaceVar()
 	{
 		// replace app/gradle.properties
-		$myAppID = 'com.jibres.'. jibresAppGenerator::store();
-		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 
 	}
 
 
 	public static function store($_store)
 	{
+		// fill in store id file
 		self::fill('/app/src/main/assets/secret/store.txt', $_store);
+		// create application id
+		$myAppID = 'com.jibres.'. $_store;
+		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 	}
 
 
@@ -41,6 +43,7 @@ class jibresAppReplacer
 		}
 
 		self::fill('/app/src/main/assets/secret/endpoint.txt', $myEndpoint);
+		return $myEndpoint;
 	}
 
 	private static function fill($_addr, $_data, $_copy = null)
