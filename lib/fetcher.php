@@ -92,12 +92,13 @@ class jibresAppFetcher
 		}
 	}
 
-	public static function done($_store)
+	public static function done($_store, $_version)
 	{
 		$postData =
 		[
-			'store' => $_store,
-			'status' => 'done',
+			'store'   => $_store,
+			'status'  => 'done',
+			'version' => $_version,
 
 		];
 		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
