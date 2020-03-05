@@ -8,7 +8,7 @@ class jibresAppFetcher
 		$myStore = self::get_api_data('https://core.jibres.com/r10/queue/app', true);
 		$endPoint = null;
 
-		// get store
+		// get store id
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			jibresAppGenerator::STORE($myStore['result']['store']);
@@ -22,6 +22,12 @@ class jibresAppFetcher
 		else
 		{
 			jibresAppCode::msg('Queue is empty', true);
+		}
+
+		// get store build version
+		if(isset($myStore['result']['build']) && is_int($myStore['result']['build']))
+		{
+			jibresAppGenerator::$VERSION_BUILD = $myStore['result']['build'];
 		}
 
 		// get store api android

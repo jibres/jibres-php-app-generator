@@ -6,9 +6,11 @@ require_once "lib/replacer.php";
 
 class jibresAppGenerator
 {
-	private static $STORE = null;
-	private static $API_DATA = null;
-	private static $VERSION = 1;
+	private static $STORE         = null;
+	private static $API_DATA      = null;
+	private static $VERSION_MAJOR = 1;
+	public static  $VERSION_BUILD = 0;
+
 
 
 	public static function run()
@@ -31,8 +33,8 @@ class jibresAppGenerator
 		self::buildApp();
 
 		// 4. copy apk
-		$target = __DIR__. '/public_html/v'. self::$VERSION;
-		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
+		$target = __DIR__. '/public_html/v'. self::version();
+		$target .= '/jibres-'.self::store().'-v'. self::version(). '.apk';
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $target, 'apk');
 
 		// 5. call finish
@@ -42,12 +44,24 @@ class jibresAppGenerator
 		jibresAppCode::msg('Finish Successfull', true);
 	}
 
+
+	private static function version()
+	{
+		$myVersion = self::$VERSION_MAJOR;
+		$myVersion .= '.';
+		$myVersion .= date("Ymd");
+		$myVersion .= '.';
+		$myVersion .= self::$VERSION_BUILD;
+	}
+
+
 	private static function buildApp()
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, 'build');
 	}
+
 
 	public static function store($_store = false)
 	{
