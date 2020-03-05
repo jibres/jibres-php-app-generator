@@ -25,7 +25,7 @@ class jibresAppFetcher
 		}
 
 		// get store build version
-		if(isset($myStore['result']['build']) && is_int($myStore['result']['build']))
+		if(isset($myStore['result']['build']) && is_numeric($myStore['result']['build']))
 		{
 			jibresAppGenerator::$VERSION_BUILD = $myStore['result']['build'];
 		}
