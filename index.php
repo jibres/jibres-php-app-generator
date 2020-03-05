@@ -28,11 +28,12 @@ class jibresAppGenerator
 		// run gradle
 
 		// copy apk
-
 		$target = __DIR__. '/public_html/v'. self::$VERSION;
 		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
 		jibresAppReplacer::fill('app/build/outputs/apk/release/app-release.apk', $target, true);
+
 		// call finish
+		jibresAppFetcher::done(self::store());
 
 		jibresAppCode::msg('Finish Successfull', true);
 	}

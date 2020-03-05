@@ -66,8 +66,19 @@ class jibresAppFetcher
 		}
 	}
 
+	public static function done($_store)
+	{
+		$postData =
+		[
+			'store' => $_store,
+			'status' => 'successful',
 
-	private static function get_api_data($_url, $_json = null)
+		];
+		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
+	}
+
+
+	private static function get_api_data($_url, $_json = null, $_postData = null)
 	{
 		$ch = curl_init();
 
@@ -87,6 +98,12 @@ class jibresAppFetcher
 		// timeout setting
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+		if($_postData)
+		{
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $_postData);
+		}
 
 		$response = curl_exec($ch);
 		$mycode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
