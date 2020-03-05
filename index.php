@@ -33,7 +33,7 @@ class jibresAppGenerator
 		self::buildApp();
 
 		// 4. copy apk
-		$target = __DIR__. '/public_html/v'. self::version();
+		$target = __DIR__. '/public_html/v'. self::version(true);
 		$target .= '/jibres-'.self::store().'-v'. self::version(). '.apk';
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $target, 'apk');
 
@@ -45,13 +45,21 @@ class jibresAppGenerator
 	}
 
 
-	private static function version()
+	private static function version($_major = null)
 	{
 		$myVersion = self::$VERSION_MAJOR;
+		if($_major)
+		{
+			return $myVersion;
+
+		}
+
 		$myVersion .= '.';
 		$myVersion .= date("Ymd");
 		$myVersion .= '.';
 		$myVersion .= self::$VERSION_BUILD;
+
+		return $myVersion;
 	}
 
 
