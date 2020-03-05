@@ -33,7 +33,7 @@ class jibresAppGenerator
 		// 4. copy apk
 		$target = __DIR__. '/public_html/v'. self::$VERSION;
 		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
-		jibresAppReplacer::fill('app/build/outputs/apk/release/app-release.apk', $target, 'apk');
+		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $target, 'apk');
 
 		// 5. call finish
 		jibresAppFetcher::done(self::store());
