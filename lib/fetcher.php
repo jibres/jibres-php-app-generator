@@ -7,6 +7,7 @@ class jibresAppFetcher
 		// get store id
 		$myStore = self::get_api_data('https://core.jibres.com/r10/queue/app', true);
 		$endPoint = null;
+
 		// get store
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
@@ -24,7 +25,26 @@ class jibresAppFetcher
 		}
 
 		// get store api android
-		$android_api = self::get_api_data($endPoint. '/android');
+		$android_api = self::get_api_data($endPoint. '/android', true);
+		// set logo
+		if(isset($android_api['result']['logo']['icon']))
+		{
+			$myLogo = $android_api['result']['logo']['icon'];
+			if(substr($myLogo, -3) === 'png')
+			{
+				jibresAppReplacer::logo($myLogo);
+			}
+			else
+			{
+				// we need png logo
+				jibresAppCode::msg('Logo is not in PNG format!', false);
+			}
+		}
+		else
+		{
+			jibresAppCode::msg('Logo is not set!', false);
+		}
+
 		jibresAppGenerator::apiData($android_api);
 		// get store api android intro
 		// get store api android splash

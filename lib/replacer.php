@@ -2,15 +2,6 @@
 
 class jibresAppReplacer
 {
-	private static $APP_FOLDER = __DIR__ . '/../../Jibres-AndroidApp';
-
-	public function replaceVar()
-	{
-		// replace app/gradle.properties
-
-	}
-
-
 	public static function store($_store)
 	{
 		// fill in store id file
@@ -21,7 +12,7 @@ class jibresAppReplacer
 	}
 
 
-	private static function logo($_logoURL)
+	public static function logo($_logoURL)
 	{
 		self::fill('/app/src/main/res/drawable/logo.png', $_logoURL, true);
 	}
@@ -64,7 +55,9 @@ class jibresAppReplacer
 
 	private static function gradle($_file, $_replace)
 	{
-		$fileAddr = realpath(self::$APP_FOLDER. $_file);
+		$fileAddr = realpath(__DIR__ . '/../../Jibres-AndroidApp');
+		$fileAddr .= $_file;
+
 
 		if(!file_exists($fileAddr))
 		{
