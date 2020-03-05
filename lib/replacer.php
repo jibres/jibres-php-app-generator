@@ -60,7 +60,7 @@ class jibresAppReplacer
 				}
 				if(file_exists($myAddr))
 				{
-					copy($_data, $myAddr);
+					copy($myAddr, $_data);
 				}
 				else
 				{
