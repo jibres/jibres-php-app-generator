@@ -71,7 +71,7 @@ class jibresAppFetcher
 		$postData =
 		[
 			'store' => $_store,
-			'status' => 'successful',
+			'status' => 'done',
 
 		];
 		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
