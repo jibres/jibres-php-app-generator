@@ -8,13 +8,24 @@ class jibresAppFetcher
 	public static function fetchAPI()
 	{
 		// get store id
-		$myStore = self::getQueue('https://core.jibres.com/r10/queue/app');
+		$myStore = self::get_api_data('https://core.jibres.com/r10/queue/app', true);
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			jibresAppGenerator::STORE($myStore['result']['store']);
+			jibresAppReplacer::endpoint(true, $myStore['result']['store']);
 		}
+		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
+		{
+			jibresAppGenerator::STORE(null);
+			jibresAppReplacer::endpoint(null);
+		}
+		else
+		{
+			jibresAppCode::msg('Queue is empty', true);
+		}
+
 		// get store api android
-		$a = self::getQueue(self::create_api_link(self::$API_ANDROID));
+		$a = self::get_api_data(self::create_api_link(self::$API_ANDROID));
 		jibresAppGenerator::apiData($a);
 		// get store api android intro
 		// get store api android splash
@@ -27,7 +38,7 @@ class jibresAppFetcher
 	}
 
 
-	private static function getQueue($_url)
+	private static function get_api_data($_url, $_json = null)
 	{
 		$ch = curl_init();
 
@@ -63,18 +74,13 @@ class jibresAppFetcher
 			jibresAppCode::boboom('Empty server response', true);
 		}
 		curl_close($ch);
-		if(substr($response, 0, 1) === "{")
-		{
-			$myResponse = json_decode($response, JSON_UNESCAPED_UNICODE);
-		}
-		return $myResponse;
 
-		if(isset($myResponse['ok']))
+		if($_json && substr($response, 0, 1) === "{")
 		{
-			return $myResponse;
+			return json_decode($response, JSON_UNESCAPED_UNICODE);
 		}
 
-		jibresAppCode::jsonBoom($response);
+		return $response;
 	}
 }
 ?>

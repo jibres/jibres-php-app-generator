@@ -1,13 +1,11 @@
 <?php
 
-
 class jibresAppReplacer
 {
-	private static $APP_FOLDER = null;
+	private static $APP_FOLDER = __DIR__ . '/../../Jibres-AndroidApp';
+
 	public function replaceVar()
 	{
-		self::$APP_FOLDER = realpath(__DIR__ . '/../../Jibres-AndroidApp');
-
 		// replace app/gradle.properties
 		$myAppID = 'com.jibres.'. jibresAppGenerator::store();
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
@@ -15,26 +13,49 @@ class jibresAppReplacer
 	}
 
 
-	private static function store()
+	private static function store($_store)
 	{
-		$fileAddr = self::$APP_FOLDER. '/app/src/main/assets/secret/store.txt';
-		file_put_contents($fileAddr, jibresAppGenerator::store());
+		self::fill('/app/src/main/assets/secret/store.txt', $_store);
 	}
+
 
 	private static function logo($_logoURL)
 	{
-		copy($_logoURL, self::$APP_FOLDER. '/app/src/main/res/drawable/logo.png');
+		self::fill('/app/src/main/res/drawable/logo.png', $_logoURL, true);
 	}
 
-	private static function endpoint($jibres_main_app)
-	{
-		if($jibres_main_app)
-		{
 
+	private static function endpoint($_storeMode, $_store = null)
+	{
+		$myEndpoint = 'https://core.jibres.com/r10';
+		if($_storeMode)
+		{
+			if($_store)
+			{
+				$myEndpoint = 'https://api.jibres.com/'. $_store. '/v2';
+			}
+			else
+			{
+				jibresAppCode::msg('Store is not exist for endpoint', true);
+			}
+		}
+
+		self::fill('/app/src/main/assets/secret/endpoint.txt', $myEndpoint);
+	}
+
+	private static function fill($_addr, $_data, $_copy = null)
+	{
+		// create path
+		$myAddr = realpath(__DIR__ . '/../../Jibres-AndroidApp');
+		$myAddr .= $_addr;
+
+		if($_copy)
+		{
+			copy($_data, $myAddr);
 		}
 		else
 		{
-
+			file_put_contents($myAddr, $_data);
 		}
 	}
 
