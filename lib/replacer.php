@@ -52,6 +52,12 @@ class jibresAppReplacer
 		{
 			if($_copy === 'apk')
 			{
+				$myDir = dirname($_data);
+				if (!is_dir($myDir))
+				{
+					// dir doesn't exist, make it
+					mkdir($myDir, 0775, true);
+				}
 				if(file_exists($_data))
 				{
 					copy($_data, $myAddr);
