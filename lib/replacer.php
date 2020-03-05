@@ -37,7 +37,7 @@ class jibresAppReplacer
 		return $myEndpoint;
 	}
 
-	private static function fill($_addr, $_data, $_copy = null)
+	public static function fill($_addr, $_data, $_copy = null)
 	{
 		// create path
 		$myAddr = realpath(__DIR__ . '/../../Jibres-AndroidApp');

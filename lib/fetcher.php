@@ -37,7 +37,7 @@ class jibresAppFetcher
 			else
 			{
 				// we need png logo
-				jibresAppCode::msg('Logo is not in PNG format!', false);
+				// jibresAppCode::msg('Logo is not in PNG format!', false);
 			}
 		}
 		else
@@ -46,8 +46,24 @@ class jibresAppFetcher
 		}
 
 		jibresAppGenerator::apiData($android_api);
+
 		// get store api android intro
+		$android_intro = self::get_api_data($endPoint. '/android/intro', true);
+		if(isset($android_intro['result']))
+		{
+			$myIntro = $android_intro['result'];
+			$myIntro = json_encode($myIntro, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+			jibresAppReplacer::fill('/app/src/main/assets/json/intro_default.json', $myIntro);
+		}
+
 		// get store api android splash
+		$android_splash = self::get_api_data($endPoint. '/android/splash', true);
+		if(isset($android_splash['result']))
+		{
+			$mySplash = $android_splash['result'];
+			$mySplash = json_encode($mySplash, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+			jibresAppReplacer::fill('/app/src/main/assets/json/splash_default.json', $mySplash);
+		}
 	}
 
 
