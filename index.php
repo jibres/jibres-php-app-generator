@@ -31,8 +31,6 @@ class jibresAppGenerator
 
 		$target = __DIR__. '/public_html/v'. self::$VERSION;
 		$target .= '/jibres-'.self::store().'-v'. self::$VERSION. '.apk';
-		var_dump($target);
-		exit();
 		jibresAppReplacer::fill('app/build/outputs/apk/release/app-release.apk', $target, true);
 		// call finish
 

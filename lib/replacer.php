@@ -50,7 +50,14 @@ class jibresAppReplacer
 		$myAddr = APP_FOLDER. $_addr;
 		if($_copy)
 		{
-			copy($_data, $myAddr);
+			if(file_exists($_data))
+			{
+				copy($_data, $myAddr);
+			}
+			else
+			{
+				jibresAppCode::msg('Copy source is not exist! '. $_data, true);
+			}
 		}
 		else
 		{
