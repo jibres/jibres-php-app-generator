@@ -113,6 +113,13 @@ class jibresAppReplacer
 		$data = parse_ini_file($fileAddr);
 		$fileData = '';
 
+		// gradle detail to set
+		// APPLICATION_ID=com.jibres.android
+		// STORE_FILE=xxx
+		// STORE_PASSWORD=xxx
+		// KEY_ALIAS=xxx
+		// KEY_PASSWORD=xxx
+
 		foreach($data as $key => $value)
 		{
 			if(isset($_replace[$key]) && $_replace[$key] !== $value)
