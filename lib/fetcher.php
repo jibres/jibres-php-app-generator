@@ -92,6 +92,7 @@ class jibresAppFetcher
 		}
 	}
 
+
 	public static function done($_store, $_version)
 	{
 		$postData =
@@ -99,6 +100,20 @@ class jibresAppFetcher
 			'store'   => $_store,
 			'status'  => 'done',
 			'version' => $_version,
+
+		];
+		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
+	}
+
+
+	public static function failed($_txt = null, $_status)
+	{
+		$postData =
+		[
+			'store'  => jibresAppGenerator::store(),
+			'status' => 'failed',
+			'ok'     => $_status,
+			'meta'   => $_txt,
 
 		];
 		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
