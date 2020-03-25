@@ -39,13 +39,14 @@ class jibresAppGenerator
 		$myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
 		// remove $ from fileName
 		$myVersion = str_replace('$', '', $myVersion);
+		$path = 'v'. self::version(true). '/'. date("Ymd"). '/'. $myVersion;
 
 		// $myTarget  = __DIR__. '/public_html/'. $myVersion;
-		$myTarget  = __DIR__. '/public_html/v'. self::version(true). '/'. date("Ymd"). '/'. $myVersion;
+		$myTarget  = __DIR__. '/public_html/'. $path;
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
 
 		// 5. call finish
-		jibresAppFetcher::done(self::store(), $myVersion);
+		jibresAppFetcher::done(self::store(), $myVersion, $path);
 
 		// 6. free busy mode
 		jibresAppCode::busy(false);
