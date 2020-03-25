@@ -80,7 +80,7 @@ class jibresAppGenerator
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';
 		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, 'build');
+		jibresAppCode::log($output, 'clean');
 	}
 
 
@@ -95,7 +95,7 @@ class jibresAppGenerator
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, 'build');
+		jibresAppCode::log($output, 'release');
 	}
 
 
