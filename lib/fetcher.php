@@ -100,6 +100,7 @@ class jibresAppFetcher
 			'store'   => $_store,
 			'status'  => 'done',
 			'version' => $_version,
+			'path'    => $_path,
 			'meta'    => ['path' => $_path],
 
 		];
