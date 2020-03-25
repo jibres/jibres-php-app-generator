@@ -34,7 +34,9 @@ class jibresAppGenerator
 		jibresAppFetcher::run();
 
 		// 3. run gradle
-		self::buildApp();
+		self::cleanApp();
+		// self::buildApp();
+		self::releaseApp();
 
 		// 4. copy apk
 		$myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
@@ -74,7 +76,22 @@ class jibresAppGenerator
 	}
 
 
+	private static function cleanApp()
+	{
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';
+		$output = shell_exec($cmd_runGradle);
+		jibresAppCode::log($output, 'build');
+	}
+
+
 	private static function buildApp()
+	{
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew build';
+		$output = shell_exec($cmd_runGradle);
+		jibresAppCode::log($output, 'build');
+	}
+
+	private static function releaseApp()
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = shell_exec($cmd_runGradle);
