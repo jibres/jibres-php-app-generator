@@ -11,8 +11,9 @@ class jibresAppFetcher
 		// get store id
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
-			jibresAppGenerator::STORE($myStore['result']['store']);
-			$endPoint = jibresAppReplacer::endpoint(true, $myStore['result']['store']);
+			$myStore = $myStore['result']['store'];
+			jibresAppGenerator::STORE($myStore);
+			$endPoint = jibresAppReplacer::endpoint(true, $myStore);
 		}
 		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
 		{

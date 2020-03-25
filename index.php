@@ -7,6 +7,7 @@ require_once "lib/replacer.php";
 class jibresAppGenerator
 {
 	private static $STORE         = null;
+	private static $STORE_CODE    = null;
 	private static $API_DATA      = null;
 	private static $VERSION_MAJOR = 1;
 	public static  $VERSION_BUILD = 0;
@@ -86,8 +87,9 @@ class jibresAppGenerator
 		if($_store !== false)
 		{
 			self::$STORE = $_store;
+			self::$STORE_CODE = str_replace('$', '', $_store);
 			// replace store
-			jibresAppReplacer::store($_store);
+			jibresAppReplacer::store(self::$STORE_CODE);
 		}
 		return self::$STORE;
 	}
