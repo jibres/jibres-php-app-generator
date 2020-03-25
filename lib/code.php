@@ -22,6 +22,11 @@ class jibresAppCode
 
 	public static function log($_data, $_type = null)
 	{
+		if (!is_dir(THIS. "/tmp/log/"))
+		{
+			// dir doesn't exist, make it
+			mkdir(THIS. "/tmp/log/", 0775, true);
+		}
 		if($_type)
 		{
 			error_log($_data, 0, THIS. "/tmp/log/". $_type. ".log");
