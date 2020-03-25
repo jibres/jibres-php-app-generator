@@ -12,7 +12,7 @@ class jibresAppCode
 
 	public static function msg($_txt = null, $_status)
 	{
-		jibresAppFetcher::failed($_status, $_txt);
+		jibresAppFetcher::failed($_txt, $_status);
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
 	}
 
