@@ -39,8 +39,10 @@ class jibresAppGenerator
 		$myVersion = 'v'. self::version(true);
 		$myVersion .= '/jibres-'.self::store();
 		$myVersion .= '-v'. self::version(). '.apk';
+		$myVersion = str_replace('$', '', $myVersion);
 
-		$myTarget  = __DIR__. '/public_html/'. $myVersion;
+		// $myTarget  = __DIR__. '/public_html/'. $myVersion;
+		$myTarget  = __DIR__. '/public_html/'. date("Ymd"). '/'. $myVersion;
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
 
 		// 5. call finish
@@ -64,8 +66,8 @@ class jibresAppGenerator
 		}
 
 		$myVersion .= '.';
-		$myVersion .= date("Ymd");
-		$myVersion .= '.';
+		// $myVersion .= date("Ymd");
+		// $myVersion .= '.';
 		$myVersion .= self::$VERSION_BUILD;
 
 		return $myVersion;
