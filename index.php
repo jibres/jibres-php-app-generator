@@ -16,6 +16,8 @@ class jibresAppGenerator
 
 	public static function run()
 	{
+		@set_time_limit(0);
+
 		// if(file_exists("lib/define.php"))
 		// {
 		// 	require_once "lib/define.php";
