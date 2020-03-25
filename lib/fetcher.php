@@ -111,7 +111,7 @@ class jibresAppFetcher
 		$postData =
 		[
 			'store'  => jibresAppGenerator::store(),
-			'status' => 'failed',
+			'status' => 'inprogress',
 			'ok'     => $_status,
 			'meta'   => $_txt,
 
