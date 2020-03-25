@@ -11,9 +11,9 @@ class jibresAppFetcher
 		// get store id
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
-			$myStore = $myStore['result']['store'];
-			jibresAppGenerator::STORE($myStore);
-			$endPoint = jibresAppReplacer::endpoint(true, $myStore);
+			$myStoreID = $myStore['result']['store'];
+			jibresAppGenerator::STORE($myStoreID);
+			$endPoint = jibresAppReplacer::endpoint(true, $myStoreID);
 		}
 		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
 		{
@@ -102,7 +102,6 @@ class jibresAppFetcher
 			'status'  => 'done',
 			'version' => $_version,
 			'path'    => $_path,
-			'meta'    => ['path' => $_path],
 
 		];
 		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
