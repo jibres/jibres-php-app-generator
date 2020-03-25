@@ -35,7 +35,7 @@ class jibresAppGenerator
 
 		// 3. run gradle
 		self::cleanApp();
-		// self::buildApp();
+		self::buildApp();
 		self::releaseApp();
 
 		// 4. copy apk
