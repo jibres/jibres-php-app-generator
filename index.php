@@ -86,7 +86,7 @@ class jibresAppGenerator
 
 	private static function runSH()
 	{
-		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./build.jibres';
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./appBuildCmd.jibres.sh';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, 'jibresAppBuilder');
 	}
