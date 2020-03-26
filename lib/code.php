@@ -38,7 +38,7 @@ class jibresAppCode
 		$diff = round($endTime - self::$START_TIME);
 		$msg = '';
 		$msg .= date("Y-m-d H:i:s");
-		$msg .= ' --Diff '. $diff;
+		$msg .= ' --Diff '. $diff.'s'. "\t";
 		if(jibresAppGenerator::store())
 		{
 			$msg .= ' --Store '. jibresAppGenerator::store();
@@ -46,10 +46,10 @@ class jibresAppCode
 		}
 		if($_txt)
 		{
-			$msg .= " -- ". $_txt;
+			$msg .= " -- ". $_txt. " ***";
 		}
 
-		jibresAppCode::log($msg. $diff, 'process');
+		jibresAppCode::log($msg, 'process');
 	}
 
 
