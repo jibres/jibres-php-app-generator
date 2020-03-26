@@ -62,7 +62,7 @@ class jibresAppCode
 		}
 		if($_type)
 		{
-			error_log("\n".$_data, 3, THIS. "/tmp/log/". $_type. ".log");
+			error_log("\n".$_data, 3, THIS. "/tmp/log/". $_type);
 		}
 		else
 		{
