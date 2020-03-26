@@ -68,7 +68,7 @@ class jibresAppReplacer
 				}
 				else
 				{
-					jibresAppCode::msg('APK is not exist! '. $_data, true);
+					jibresAppCode::msg('APK is not exist! '. $myAddr. ' - '. $_data, true);
 				}
 			}
 			else
