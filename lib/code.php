@@ -29,11 +29,11 @@ class jibresAppCode
 		}
 		if($_type)
 		{
-			error_log($_data, 0, THIS. "/tmp/log/". $_type. ".log");
+			error_log("\n".$_data, 3, THIS. "/tmp/log/". $_type. ".log");
 		}
 		else
 		{
-			error_log($_data, 0, THIS. "/tmp/log/access.log");
+			error_log("\n".$_data, 3, THIS. "/tmp/log/access.log");
 		}
 	}
 

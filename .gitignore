@@ -1,4 +1,5 @@
 */define.php
 /public_html
 /.gradle
+/tmp
 busy.conf
