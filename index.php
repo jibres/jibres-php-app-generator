@@ -82,7 +82,7 @@ class jibresAppGenerator
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./appBuildCmd.jibres.sh';
 		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, 'jibresAppBuilder'. self::version().'.log');
+		jibresAppCode::log($output, 'jibresAppBuilder'. self::version());
 	}
 
 
