@@ -19,6 +19,9 @@ class jibresAppGenerator
 		define('THIS', realpath(__DIR__));
 
 		@set_time_limit(0);
+		@date_default_timezone_set('Asia/Tehran');
+
+
 
 		jibresAppCode::process(true);
 
