@@ -16,7 +16,13 @@ class jibresAppGenerator
 
 	public static function run()
 	{
+		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
+		define('THIS', realpath(__DIR__));
+
 		@set_time_limit(0);
+
+		$startTime = microtime(true);
+		jibresAppCode::log('start '. $startTime, 'start');
 
 		// if(file_exists("lib/define.php"))
 		// {
@@ -26,8 +32,6 @@ class jibresAppGenerator
 		// {
 		// 	jibresAppCode::msg('define variables!', false);
 		// }
-		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
-		define('THIS', realpath(__DIR__));
 
 		// 1. check busy mode
 		jibresAppCode::busy(true);
@@ -36,9 +40,7 @@ class jibresAppGenerator
 		jibresAppFetcher::run();
 
 		// 3. run gradle
-		self::cleanApp();
-		self::buildApp();
-		self::releaseApp();
+		self::runSH();
 
 		// 4. copy apk
 		$myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
@@ -55,6 +57,10 @@ class jibresAppGenerator
 
 		// 6. free busy mode
 		jibresAppCode::busy(false);
+
+		$endTime = microtime(true);
+		$diff = round($endTime - $startTime);
+		jibresAppCode::log('end '. $endTime. ' - diff '. $diff, 'end');
 
 		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
@@ -75,6 +81,14 @@ class jibresAppGenerator
 		$myVersion .= self::$VERSION_BUILD;
 
 		return $myVersion;
+	}
+
+
+	private static function runSH()
+	{
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./build.jibres';
+		$output = shell_exec($cmd_runGradle);
+		jibresAppCode::log($output, 'jibresAppBuilder');
 	}
 
 
