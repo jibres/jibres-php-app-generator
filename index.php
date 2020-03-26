@@ -13,7 +13,6 @@ class jibresAppGenerator
 	public static  $VERSION_BUILD = 0;
 
 
-
 	public static function run()
 	{
 		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
@@ -21,8 +20,7 @@ class jibresAppGenerator
 
 		@set_time_limit(0);
 
-		$startTime = microtime(true);
-		jibresAppCode::log('start '. $startTime, 'start');
+		jibresAppCode::process(true);
 
 		// if(file_exists("lib/define.php"))
 		// {
@@ -58,16 +56,12 @@ class jibresAppGenerator
 		// 6. free busy mode
 		jibresAppCode::busy(false);
 
-		$endTime = microtime(true);
-		$diff = round($endTime - $startTime);
-		jibresAppCode::log('end '. $endTime. ' - diff '. $diff, 'end');
-
 		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
 	}
 
 
-	private static function version($_major = null)
+	public static function version($_major = null)
 	{
 		$myVersion = self::$VERSION_MAJOR;
 		if($_major)

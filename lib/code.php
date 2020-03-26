@@ -3,6 +3,9 @@
 
 class jibresAppCode
 {
+	private static $START_TIME = null;
+
+
 	public static function boboom($_string = null)
 	{
 		// change header
@@ -12,11 +15,41 @@ class jibresAppCode
 
 	public static function msg($_txt = null, $_status)
 	{
+		jibresAppCode::process(null, $_txt);
+
 		if($_status !== true)
 		{
 			jibresAppFetcher::failed($_txt, $_status);
 		}
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
+	}
+
+
+	public static function process($_start = null, $_txt = null)
+	{
+		if($_start)
+		{
+			self::$START_TIME = microtime(true);
+			return;
+		}
+
+		// log end process
+		$endTime = microtime(true);
+		$diff = round($endTime - self::$START_TIME);
+		$msg = '';
+		$msg .= date("Y-m-d H:i:s");
+		$msg .= ' --Diff '. $diff;
+		if(jibresAppGenerator::store())
+		{
+			$msg .= ' --Store '. jibresAppGenerator::store();
+			$msg .= ' --Version '. jibresAppGenerator::version();
+		}
+		if($_txt)
+		{
+			$msg .= " -- ". $_txt;
+		}
+
+		jibresAppCode::log($msg. $diff, 'process');
 	}
 
 
