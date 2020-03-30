@@ -15,7 +15,15 @@ class jibresAppGenerator
 
 	public static function run()
 	{
-		define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
+		if(file_exists("lib/define.php"))
+		{
+			require_once "lib/define.php";
+		}
+		if(!defined('APP_FOLDER'))
+		{
+			define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
+		}
+
 		define('THIS', realpath(__DIR__));
 
 		@set_time_limit(0);
@@ -25,14 +33,6 @@ class jibresAppGenerator
 
 		jibresAppCode::process(true);
 
-		// if(file_exists("lib/define.php"))
-		// {
-		// 	require_once "lib/define.php";
-		// }
-		// else
-		// {
-		// 	jibresAppCode::msg('define variables!', false);
-		// }
 
 		// 1. check busy mode
 		jibresAppCode::busy(true);
