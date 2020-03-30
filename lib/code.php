@@ -60,7 +60,12 @@ class jibresAppCode
 			// dir doesn't exist, make it
 			mkdir(THIS. "/tmp/log/", 0775, true);
 		}
-		if($_type)
+		if($_type === true)
+		{
+			$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
+			error_log("\n".$_data, 3, THIS. "/tmp/log/". $fileName. '.log');
+		}
+		elseif($_type)
 		{
 			error_log("\n".$_data, 3, THIS. "/tmp/log/". $_type. '.log');
 		}

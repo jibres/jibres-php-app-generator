@@ -93,7 +93,6 @@ class jibresAppReplacer
 				// dir doesn't exist, make it
 				mkdir($myDir, 0775, true);
 			}
-
 			file_put_contents($myAddr, $_data);
 		}
 	}
