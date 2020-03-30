@@ -102,7 +102,7 @@ class jibresAppFetcher
 			'status'  => 'done',
 			'version' => $_version,
 			'path'    => $_path,
-
+			'meta'    => jibresAppCode::process(),
 		];
 		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
 	}

@@ -7,6 +7,7 @@ class jibresAppCode
 	private static $FETCH_TIME = null;
 	private static $CLEAN_TIME = null;
 	private static $BUILD_TIME = null;
+	private static $PROCESS    = null;
 
 
 	public static function boboom($_string = null)
@@ -31,6 +32,12 @@ class jibresAppCode
 
 	public static function process($_start = null, $_txt = null)
 	{
+		if(self::$PROCESS)
+		{
+			self::saveProcess();
+			return true;
+		}
+
 		if($_start)
 		{
 			switch ($_start)
@@ -86,7 +93,13 @@ class jibresAppCode
 			$msg .= " -- ". $_txt. " ***";
 		}
 
-		self::log($msg, 'process');
+		self::$PROCESS = $msg;
+	}
+
+
+	public static function saveProcess()
+	{
+		self::log(self::$PROCESS, 'process');
 	}
 
 
