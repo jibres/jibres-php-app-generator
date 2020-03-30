@@ -94,6 +94,7 @@ class jibresAppCode
 		}
 
 		self::$PROCESS = $msg;
+		return $msg;
 	}
 
 
