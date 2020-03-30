@@ -3,6 +3,7 @@
 require_once "lib/fetcher.php";
 require_once "lib/code.php";
 require_once "lib/replacer.php";
+require_once "lib/exec.php";
 
 class jibresAppGenerator
 {
@@ -27,6 +28,9 @@ class jibresAppGenerator
 		define('THIS', realpath(__DIR__));
 
 		@set_time_limit(0);
+		@ini_set('display_errors', 1);
+		@ini_set('display_startup_errors', 1);
+		@error_reporting(E_ALL);
 		@date_default_timezone_set('Asia/Tehran');
 
 

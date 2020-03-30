@@ -13,6 +13,7 @@ class jibresAppReplacer
 
 	}
 
+
 	public static function appName($_name)
 	{
 		// fill app name

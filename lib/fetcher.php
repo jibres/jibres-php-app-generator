@@ -5,7 +5,7 @@ class jibresAppFetcher
 	public static function run()
 	{
 		// get store id
-		$myStore = self::get_api_data('https://core.jibres.com/r10/queue/app', true);
+		$myStore = jibresAppExec::send('https://core.jibres.com/r10/queue/app', true);
 		$endPoint = null;
 
 		// get store id
@@ -32,7 +32,7 @@ class jibresAppFetcher
 		}
 
 		// get store api android
-		$android_api = self::get_api_data($endPoint. '/android', true);
+		$android_api = jibresAppExec::send($endPoint. '/android', true);
 
 		// set title
 		if(isset($android_api['result']['title']))
@@ -75,7 +75,7 @@ class jibresAppFetcher
 		jibresAppGenerator::apiData($android_api);
 
 		// get store api android intro
-		$android_intro = self::get_api_data($endPoint. '/android/intro', true);
+		$android_intro = jibresAppExec::send($endPoint. '/android/intro', true);
 		if(isset($android_intro['result']))
 		{
 			$myIntro = $android_intro['result'];
@@ -84,7 +84,7 @@ class jibresAppFetcher
 		}
 
 		// get store api android splash
-		$android_splash = self::get_api_data($endPoint. '/android/splash', true);
+		$android_splash = jibresAppExec::send($endPoint. '/android/splash', true);
 		if(isset($android_splash['result']))
 		{
 			$mySplash = $android_splash['result'];
@@ -104,7 +104,7 @@ class jibresAppFetcher
 			'path'    => $_path,
 
 		];
-		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
+		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
 	}
 
 
@@ -118,59 +118,7 @@ class jibresAppFetcher
 			'meta'   => $_txt,
 
 		];
-		self::get_api_data('https://core.jibres.com/r10/queue/app', true, $postData);
-	}
-
-
-	private static function get_api_data($_url, $_json = null, $_postData = null)
-	{
-		$ch = curl_init();
-
-		if ($ch === false)
-		{
-			jibresAppCode::boboom('Curl failed to initialize');
-		}
-
-		curl_setopt($ch, CURLOPT_URL, $_url);
-		// turn on some setting
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, false);
-		// turn off some setting
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		// timeout setting
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-
-		if($_postData)
-		{
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $_postData);
-		}
-
-		$response = curl_exec($ch);
-		$mycode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$myResponse = null;
-		$myResult = null;
-		// error on result
-		if ($response === false)
-		{
-			jibresAppCode::boboom(curl_error($ch). ':'. curl_errno($ch), true);
-		}
-		// empty result
-		if (empty($response) || is_null($response) || !$response)
-		{
-			jibresAppCode::boboom('Empty server response', true);
-		}
-		curl_close($ch);
-
-		if($_json && substr($response, 0, 1) === "{")
-		{
-			return json_decode($response, JSON_UNESCAPED_UNICODE);
-		}
-
-		return $response;
+		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
 	}
 }
 ?>
