@@ -115,7 +115,7 @@ class jibresAppFetcher
 			'store'  => jibresAppGenerator::store(),
 			'status' => 'inprogress',
 			'ok'     => $_status,
-			'meta'   => $_txt,
+			'meta'   => jibresAppCode::process(). ' ***'. $_txt,
 
 		];
 		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
