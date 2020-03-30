@@ -86,7 +86,7 @@ class jibresAppCode
 		if($_type === true)
 		{
 			$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
-			error_log("\n".$_data, 3, THIS. "/tmp/log/". $fileName. '.log');
+			error_log("\n-------\n".$_data, 3, THIS. "/tmp/log/". $fileName. '.log');
 		}
 		elseif($_type)
 		{
