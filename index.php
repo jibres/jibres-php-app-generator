@@ -33,19 +33,21 @@ class jibresAppGenerator
 		@date_default_timezone_set('Asia/Tehran');
 
 
-
-		jibresAppCode::process(true);
-
+		// start process
+		jibresAppCode::process('start');
 
 		// 1. check busy mode
 		jibresAppCode::busy(true);
 
 		// 2. get data
 		jibresAppFetcher::run();
+		jibresAppCode::process('fetch');
 
 		// 3. run gradle
 		self::cleanApp();
+		jibresAppCode::process('clean');
 		self::releaseApp();
+		jibresAppCode::process('build');
 
 		// 4. copy apk
 		$myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';

@@ -4,6 +4,9 @@
 class jibresAppCode
 {
 	private static $START_TIME = null;
+	private static $FETCH_TIME = null;
+	private static $CLEAN_TIME = null;
+	private static $BUILD_TIME = null;
 
 
 	public static function boboom($_string = null)
@@ -29,16 +32,36 @@ class jibresAppCode
 	{
 		if($_start)
 		{
-			self::$START_TIME = microtime(true);
+			switch ($_start)
+			{
+				case 'start':
+					self::$START_TIME = microtime(true);
+					break;
+
+				case 'fetch':
+					self::$FETCH_TIME = microtime(true);
+					break;
+
+				case 'clean':
+					self::$CLEAN_TIME = microtime(true);
+					break;
+
+				case 'build':
+					self::$BUILD_TIME = microtime(true);
+					break;
+			}
 			return;
 		}
 
 		// log end process
 		$endTime = microtime(true);
-		$diff = round($endTime - self::$START_TIME);
 		$msg = '';
 		$msg .= date("Y-m-d H:i:s");
-		$msg .= ' --Diff '. $diff.'s'. "\t";
+		$msg .= ' --TotalDiff '. round($endTime - self::$START_TIME).'s'. "\t";
+		$msg .= ' --Fetch '. round(self::$FETCH_TIME - self::$START_TIME).'s'. "\t";
+		$msg .= ' --Clean '. round(self::$CLEAN_TIME - self::$FETCH_TIME).'s'. "\t";
+		$msg .= ' --Build '. round(self::$BUILD_TIME - self::$CLEAN_TIME).'s'. "\t";
+
 		if(jibresAppGenerator::store())
 		{
 			$msg .= ' --Store '. jibresAppGenerator::store();
