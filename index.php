@@ -16,6 +16,7 @@ class jibresAppGenerator
 
 	public static function run()
 	{
+		define('THIS', realpath(__DIR__));
 		if(file_exists("lib/define.php"))
 		{
 			require_once "lib/define.php";
@@ -24,8 +25,6 @@ class jibresAppGenerator
 		{
 			define('APP_FOLDER', realpath(__DIR__ . '/../Jibres-app-android-v1'));
 		}
-
-		define('THIS', realpath(__DIR__));
 
 		@set_time_limit(0);
 		@ini_set('display_errors', 1);
