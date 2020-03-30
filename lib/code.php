@@ -62,7 +62,7 @@ class jibresAppCode
 		$endTime = microtime(true);
 		$msg = '';
 		$msg .= date("Y-m-d H:i:s");
-		$msg .= ' --TotalDiff '. round($endTime - self::$START_TIME).'s'. "\t";
+		$msg .= ' --Total '. round($endTime - self::$START_TIME).'s'. "\t";
 		if(self::$FETCH_TIME)
 		{
 			$msg .= ' --Fetch '. round(self::$FETCH_TIME - self::$START_TIME).'s'. "\t";
@@ -86,7 +86,7 @@ class jibresAppCode
 			$msg .= " -- ". $_txt. " ***";
 		}
 
-		jibresAppCode::log($msg, 'process');
+		self::log($msg, 'process');
 	}
 
 
