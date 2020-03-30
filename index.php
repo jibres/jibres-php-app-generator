@@ -4,6 +4,7 @@ require_once "lib/fetcher.php";
 require_once "lib/code.php";
 require_once "lib/replacer.php";
 require_once "lib/exec.php";
+require_once "lib/cmd.php";
 
 class jibresAppGenerator
 {
@@ -44,9 +45,9 @@ class jibresAppGenerator
 		jibresAppCode::process('fetch');
 
 		// 3. run gradle
-		self::cleanApp();
+		jibresAppCmd::cleanApp();
 		jibresAppCode::process('clean');
-		self::releaseApp();
+		jibresAppCmd::releaseApp();
 		jibresAppCode::process('build');
 
 		// 4. copy apk
@@ -84,37 +85,6 @@ class jibresAppGenerator
 		$myVersion .= self::$VERSION_BUILD;
 
 		return $myVersion;
-	}
-
-
-	private static function runSH()
-	{
-		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./appBuildCmd.jibres.sh';
-		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, true);
-	}
-
-
-	private static function cleanApp()
-	{
-		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';
-		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, true);
-	}
-
-
-	private static function buildApp()
-	{
-		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew build';
-		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, true);
-	}
-
-	private static function releaseApp()
-	{
-		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
-		$output = shell_exec($cmd_runGradle);
-		jibresAppCode::log($output, true);
 	}
 
 
