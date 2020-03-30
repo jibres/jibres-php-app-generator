@@ -16,7 +16,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, true);
-		self::$checkSuccess($output);
+		return self::checkSuccess($output);
 	}
 
 
@@ -25,7 +25,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew build';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, true);
-		self::$checkSuccess($output);
+		return self::checkSuccess($output);
 	}
 
 
@@ -34,7 +34,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = shell_exec($cmd_runGradle);
 		jibresAppCode::log($output, true);
-		self::$checkSuccess($output);
+		return self::checkSuccess($output);
 	}
 
 	private static function checkSuccess($_response)
@@ -49,21 +49,17 @@ class jibresAppCmd
 				if($myStartPos = strpos($myLine, 'BUILD SUCCESSFUL in ') !== false)
 				{
 					// this is result line
-					$runSecond = substr($myLine, $myStartPos);
+					$runSecond = substr($myLine, 20);
 				}
 			}
 
-			var_dump($runSecond);
-			var_dump($myResultArr);
-
-			// $startPos = strpos($_response, 'BUILD SUCCESSFUL in ');
-			// return true;
+			return $runSecond;
 		}
-		var_dump($myResponse);
 
-		exit();
 
 		// build failed
+		// BUILD FAILED in 2m 4s
+		jibresAppCode::msg('Build Failed', false);
 		return false;
 	}
 }

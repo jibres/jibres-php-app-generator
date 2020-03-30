@@ -18,12 +18,13 @@ class jibresAppCode
 
 	public static function msg($_txt = null, $_status)
 	{
-		jibresAppCode::process(null, $_txt);
+		self::process(null, $_txt);
 
 		if($_status !== true)
 		{
 			jibresAppFetcher::failed($_txt, $_status);
 		}
+
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
 	}
 
@@ -52,15 +53,28 @@ class jibresAppCode
 			}
 			return;
 		}
+		else
+		{
+			self::busy(false);
+		}
 
 		// log end process
 		$endTime = microtime(true);
 		$msg = '';
 		$msg .= date("Y-m-d H:i:s");
 		$msg .= ' --TotalDiff '. round($endTime - self::$START_TIME).'s'. "\t";
-		$msg .= ' --Fetch '. round(self::$FETCH_TIME - self::$START_TIME).'s'. "\t";
-		$msg .= ' --Clean '. round(self::$CLEAN_TIME - self::$FETCH_TIME).'s'. "\t";
-		$msg .= ' --Build '. round(self::$BUILD_TIME - self::$CLEAN_TIME).'s'. "\t";
+		if(self::$FETCH_TIME)
+		{
+			$msg .= ' --Fetch '. round(self::$FETCH_TIME - self::$START_TIME).'s'. "\t";
+			if(self::$CLEAN_TIME)
+			{
+				$msg .= ' --Clean '. round(self::$CLEAN_TIME - self::$FETCH_TIME).'s'. "\t";
+				if(self::$BUILD_TIME)
+				{
+					$msg .= ' --Build '. round(self::$BUILD_TIME - self::$CLEAN_TIME).'s'. "\t";
+				}
+			}
+		}
 
 		if(jibresAppGenerator::store())
 		{
