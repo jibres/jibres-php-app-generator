@@ -5,7 +5,7 @@ class jibresAppFetcher
 	public static function run()
 	{
 		// get store id
-		$myStore = jibresAppExec::send('https://core.jibres.com/r10/queue/app', true);
+		$myStore = jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true);
 		$endPoint = null;
 
 		// get store id
@@ -104,7 +104,7 @@ class jibresAppFetcher
 			'path'    => $_path,
 			'meta'    => jibresAppCode::process(),
 		];
-		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
+		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 	}
 
 
@@ -118,7 +118,7 @@ class jibresAppFetcher
 			'meta'   => jibresAppCode::process(). ' ***'. $_txt,
 
 		];
-		jibresAppExec::send('https://core.jibres.com/r10/queue/app', true, $postData);
+		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 	}
 }
 ?>
