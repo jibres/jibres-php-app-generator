@@ -32,12 +32,12 @@ class jibresAppReplacer
 
 	public static function endpoint($_storeMode, $_store = null)
 	{
-		$myEndpoint = 'https://core.jibres.com/r10';
+		$myEndpoint = 'https://core.jibres.ir/r10';
 		if($_storeMode)
 		{
 			if($_store)
 			{
-				$myEndpoint = 'https://api.jibres.com/'. $_store. '/v2';
+				$myEndpoint = 'https://api.jibres.ir/'. $_store. '/v2';
 			}
 			else
 			{
