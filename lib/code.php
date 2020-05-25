@@ -149,7 +149,7 @@ class jibresAppCode
 			else
 			{
 				// we are busy from last operation
-				jibresAppCode::msg('We are busy from last operation', true);
+				self::jsonBoom(['ok'=> false, 'msg'=> ['We are busy from last operation']]);
 			}
 		}
 		else
