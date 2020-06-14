@@ -50,14 +50,14 @@ class jibresAppReplacer
 	}
 
 
-	public static function fill($_addr, $_data, $_copy = null)
+	public static function fill($_addr, $_sourceData, $_copy = null)
 	{
 		$myAddr = APP_FOLDER. $_addr;
 		if($_copy)
 		{
 			if($_copy === 'apk')
 			{
-				$myDir = dirname($_data);
+				$myDir = dirname($_sourceData);
 				if (!is_dir($myDir))
 				{
 					// dir doesn't exist, make it
@@ -65,32 +65,31 @@ class jibresAppReplacer
 				}
 				if(file_exists($myAddr))
 				{
-					copy($myAddr, $_data);
+					copy($myAddr, $_sourceData);
 				}
 				else
 				{
-					jibresAppCode::msg('APK is not exist! '. $myAddr. ' - '. $_data, true);
+					jibresAppCode::msg('APK is not exist! '. $myAddr. ' - '. $_sourceData, true);
 				}
 			}
 			else
 			{
-				ini_set("user_agent","Mozilla custom agent");
-				$file_headers = @get_headers($_data);
+				$file_headers = @get_headers($_sourceData);
 
 				if(isset($file_headers[0]))
 				{
 					if($file_headers[0] == 'HTTP/1.1 404 Not Found')
 					{
-						jibresAppCode::msg('Copy source is not exist URL! '. $_data, true);
+						jibresAppCode::msg('Copy source is not exist URL! '. $_sourceData, true);
 					}
 					else
 					{
-						copy($_data, $myAddr);
+						copy($_sourceData, $myAddr);
 					}
 				}
 				else
 				{
-					jibresAppCode::msg('get_headers return false! '. $_data, true);
+					jibresAppCode::msg('get_headers return false! '. $_sourceData, true);
 				}
 			}
 		}
@@ -102,7 +101,7 @@ class jibresAppReplacer
 				// dir doesn't exist, make it
 				mkdir($myDir, 0775, true);
 			}
-			file_put_contents($myAddr, $_data);
+			file_put_contents($myAddr, $_sourceData);
 		}
 	}
 
