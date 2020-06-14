@@ -128,6 +128,10 @@ class jibresAppCode
 
 	public static function busy($_status = null)
 	{
+		if(!defined('THIS'))
+		{
+			define('THIS', realpath(__DIR__. '//../'));
+		}
 		$busyFile   = THIS.'/busy.conf';
 		if(!file_exists($busyFile))
 		{
@@ -145,6 +149,7 @@ class jibresAppCode
 				// if it's free
 				// change it to busy
 				file_put_contents($busyFile, 1);
+				return 1;
 			}
 			else
 			{
@@ -155,6 +160,7 @@ class jibresAppCode
 		else
 		{
 			file_put_contents($busyFile, 0);
+			return 0;
 		}
 	}
 
