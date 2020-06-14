@@ -74,14 +74,23 @@ class jibresAppReplacer
 			}
 			else
 			{
+				ini_set("user_agent","Mozilla custom agent");
 				$file_headers = @get_headers($_data);
-				if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+
+				if(isset($file_headers[0]))
 				{
-					jibresAppCode::msg('Copy source is not exist URL! '. $_data, true);
+					if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+					{
+						jibresAppCode::msg('Copy source is not exist URL! '. $_data, true);
+					}
+					else
+					{
+						copy($_data, $myAddr);
+					}
 				}
 				else
 				{
-					copy($_data, $myAddr);
+					jibresAppCode::msg('get_headers return false! '. $_data, true);
 				}
 			}
 		}
