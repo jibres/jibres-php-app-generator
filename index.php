@@ -60,7 +60,7 @@ class jibresAppGenerator
 		if(self::version())
 		{
 			$myVersion .= '-v'. self::version();
-		}s
+		}
 		$myVersion .= '.apk';
 
 		// remove $ from fileName
