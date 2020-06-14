@@ -8,8 +8,6 @@ class jibresAppFetcher
 		$myStore = jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true);
 		$endPoint = null;
 
-var_dump($myStore);
-
 		// get store id
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
