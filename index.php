@@ -51,7 +51,18 @@ class jibresAppGenerator
 		jibresAppCode::process('build');
 
 		// 4. copy apk
-		$myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
+		// $myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
+		$myVersion = 'jibres';
+		if(self::store())
+		{
+			$myVersion .= '-'. self::store();
+		}
+		if(self::version())
+		{
+			$myVersion .= '-v'. self::version();
+		}s
+		$myVersion .= '.apk';
+
 		// remove $ from fileName
 		$myVersion = str_replace('$', '', $myVersion);
 		$path = 'v'. self::version(true). '/'. date("Ymd"). '/'. $myVersion;
@@ -97,6 +108,12 @@ class jibresAppGenerator
 			// replace store
 			jibresAppReplacer::store(self::$STORE_CODE);
 		}
+
+		if(self::$STORE === null)
+		{
+			return 'jibres';
+		}
+
 		return self::$STORE;
 	}
 

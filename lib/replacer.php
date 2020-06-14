@@ -8,7 +8,14 @@ class jibresAppReplacer
 		self::fill('/app/src/main/assets/secret/store.txt', $_store);
 
 		// create application id
-		$myAppID = 'com.jibres.'. $_store;
+		if($_store === null)
+		{
+			$myAppID = 'com.jibres.android';
+		}
+		else
+		{
+			$myAppID = 'com.jibres.'. $_store;
+		}
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
 
 	}
