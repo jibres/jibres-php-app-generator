@@ -4,16 +4,17 @@ class jibresAppReplacer
 {
 	public static function store($_store)
 	{
-		// fill in store id file
-		self::fill('/app/src/main/assets/secret/store.txt', $_store);
 
 		// create application id
 		if(!$_store)
 		{
+			self::fill('/app/src/main/assets/secret/store.txt', 'jibres');
 			$myAppID = 'com.jibres.android';
 		}
 		else
 		{
+			// fill in store id file
+			self::fill('/app/src/main/assets/secret/store.txt', $_store);
 			$myAppID = 'com.jibres.'. $_store;
 		}
 		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
