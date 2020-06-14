@@ -8,12 +8,24 @@ class jibresAppFetcher
 		$myStore = jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true);
 		$endPoint = null;
 
+var_dump($myStore);
+
 		// get store id
 		if(isset($myStore['result']['store']) && $myStore['result']['store'])
 		{
 			$myStoreID = $myStore['result']['store'];
-			jibresAppGenerator::STORE($myStoreID);
-			$endPoint = jibresAppReplacer::endpoint(true, $myStoreID);
+			if($myStoreID === '$jb2jw')
+			{
+				// this is jibres store!
+				jibresAppGenerator::STORE(null);
+				$endPoint = jibresAppReplacer::endpoint(null);
+			}
+			else
+			{
+				// normal store
+				jibresAppGenerator::STORE($myStoreID);
+				$endPoint = jibresAppReplacer::endpoint(true, $myStoreID);
+			}
 		}
 		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
 		{
