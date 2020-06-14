@@ -11,6 +11,15 @@ class jibresAppCmd
 	}
 
 
+	public static function StopDaemons()
+	{
+		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew --stop';
+		$output = shell_exec($cmd_runGradle);
+		jibresAppCode::log($output, true);
+		return self::checkSuccess($output);
+	}
+
+
 	public static function cleanApp()
 	{
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';

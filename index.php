@@ -45,6 +45,7 @@ class jibresAppGenerator
 		jibresAppCode::process('fetch');
 
 		// 3. run gradle
+		jibresAppCmd::StopDaemons();
 		jibresAppCmd::cleanApp();
 		jibresAppCode::process('clean');
 		jibresAppCmd::releaseApp();
