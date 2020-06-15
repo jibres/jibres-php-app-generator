@@ -6,6 +6,7 @@ require_once "lib/output.php";
 require_once "lib/replacer.php";
 require_once "lib/exec.php";
 require_once "lib/cmd.php";
+require_once "lib/log.php";
 
 
 class jibresAppGenerator
