@@ -122,7 +122,7 @@ class jibresAppGenerator
 		$myStore = self::store();
 		if($myStore === 'jibres')
 		{
-			$myStore = 'jb2jw';
+			$myStore = '$jb2jw';
 		}
 
 		return $myStore;
