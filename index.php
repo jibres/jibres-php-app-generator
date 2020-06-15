@@ -1,11 +1,11 @@
 <?php
 
-require_once "lib/fetcher.php";
 require_once "lib/code.php";
+require_once "lib/input.php";
+require_once "lib/output.php";
 require_once "lib/replacer.php";
 require_once "lib/exec.php";
 require_once "lib/cmd.php";
-require_once "lib/output.php";
 
 
 class jibresAppGenerator
@@ -43,7 +43,7 @@ class jibresAppGenerator
 		jibresAppCode::busy(true);
 
 		// 2. get data
-		jibresAppFetcher::run();
+		jibresAppInput::get();
 		jibresAppCode::process('fetch');
 
 		// 3. run gradle

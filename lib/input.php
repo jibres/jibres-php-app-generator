@@ -1,8 +1,8 @@
 <?php
 
-class jibresAppFetcher
+class jibresAppInput
 {
-	public static function run()
+	public static function get()
 	{
 		// get store id
 		$myStore = jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true);
