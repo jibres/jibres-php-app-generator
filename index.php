@@ -15,7 +15,6 @@ class jibresAppGenerator
 	private static $API_DATA      = null;
 	private static $VERSION_MAJOR = 1;
 	public static  $VERSION_BUILD = 0;
-	public static  $RELEASE_PATH  = null;
 
 
 	public static function run()
@@ -55,9 +54,9 @@ class jibresAppGenerator
 		jibresAppCode::process('build');
 
 		// 4. copy apk
-		$path = 'v'. self::version(true). '/'. date("Ymd"). '/'. self::apkFileName();
-		$myTarget  = __DIR__. '/public_html/'. $path;
-		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
+		$path = self::path_folder(). self::apkFileName();
+		$facotryAPK = '/app/build/outputs/apk/release/app-release.apk';
+		jibresAppReplacer::fill($facotryAPK, self::path_loc(). $path, 'apk');
 
 		// 5. call finish
 		jibresAppOutput::done(self::store(), self::apkFileName(), $path);
@@ -67,6 +66,18 @@ class jibresAppGenerator
 
 		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
+	}
+
+
+	public static function path_loc()
+	{
+		return __DIR__. '/public_html/';
+	}
+
+
+	public static function path_folder()
+	{
+		return 'v'. self::version(true). '/'. date("Ymd"). '/';
 	}
 
 
