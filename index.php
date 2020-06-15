@@ -42,21 +42,21 @@ class jibresAppGenerator
 
 
 		// start process
-		jibresAppCode::process('start');
+		jibresAppProcess::set('start');
 
 		// 1. check busy mode
-		jibresAppCode::busy(true);
+		jibresAppProcess::busy(true);
 
 		// 2. get data
 		jibresAppInput::get();
-		jibresAppCode::process('fetch');
+		jibresAppProcess::set('fetch');
 
 		// 3. run gradle
 		jibresAppCmd::StopDaemons();
 		jibresAppCmd::cleanApp();
-		jibresAppCode::process('clean');
+		jibresAppProcess::set('clean');
 		jibresAppCmd::releaseApp();
-		jibresAppCode::process('build');
+		jibresAppProcess::set('build');
 
 		// 4. copy apk
 		$apkReleaseLoc = self::path_loc(). self::path_folder(). self::apkFileName();
@@ -66,7 +66,7 @@ class jibresAppGenerator
 		jibresAppOutput::done(self::store(), self::apkFileName(), self::path_folder(). self::apkFileName());
 
 		// 6. free busy mode
-		jibresAppCode::busy(false);
+		jibresAppProcess::busy(false);
 
 		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);

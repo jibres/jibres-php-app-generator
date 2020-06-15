@@ -12,7 +12,7 @@ class jibresAppOutput
 			'status'  => 'done',
 			'version' => $_version,
 			'path'    => $_path,
-			'meta'    => jibresAppCode::process(),
+			'meta'    => jibresAppProcess::set(),
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 	}
@@ -25,7 +25,7 @@ class jibresAppOutput
 			'store'  => jibresAppGenerator::store(),
 			'status' => 'failed',
 			'ok'     => $_status,
-			'meta'   => jibresAppCode::process(). ' ***'. $_txt,
+			'meta'   => jibresAppProcess::set(). ' ***'. $_txt,
 
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);

@@ -1,5 +1,5 @@
 <?php
 require_once "lib/code.php";
 
-var_dump(jibresAppCode::busy(false));
+var_dump(jibresAppProcess::busy(false));
 ?>
