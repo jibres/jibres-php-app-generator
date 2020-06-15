@@ -8,6 +8,7 @@ class jibresAppExec
 
 		if ($ch === false)
 		{
+			jibresAppProcess::set('curlFailed');
 			jibresAppCode::msg('Curl failed to initialize', false);
 		}
 
@@ -36,11 +37,13 @@ class jibresAppExec
 		// error on result
 		if ($response === false)
 		{
+			jibresAppProcess::set('curlError');
 			jibresAppCode::msg(curl_error($ch). ':'. curl_errno($ch), false);
 		}
 		// empty result
 		if (empty($response) || is_null($response) || !$response)
 		{
+			jibresAppProcess::set('curlEmpty');
 			jibresAppCode::msg('Empty server response', false);
 		}
 		curl_close($ch);

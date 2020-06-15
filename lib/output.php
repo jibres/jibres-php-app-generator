@@ -39,5 +39,22 @@ class jibresAppOutput
 		jibresAppCode::msg($postData, false);
 	}
 
+
+	public static function error($_mode = null)
+	{
+		$postData =
+		[
+			'status' => 'error',
+			'store'  => jibresAppGenerator::store_code(),
+			'version' => jibresAppGenerator::apkFileName(),
+			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
+
+		];
+		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
+
+		// show msg
+		jibresAppLog::save($postData, 'Error');
+	}
+
 }
 ?>

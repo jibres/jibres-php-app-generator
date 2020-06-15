@@ -45,15 +45,37 @@ class jibresAppProcess
 			case 'failedError':
 				self::$FAILED_TIME = $myTime;
 				self::busy(false);
-				jibresAppOutput::failed($_mode);
 				break;
 
 
 			case 'finish':
-			case 'emptyQueue':
 				self::$FINISH_TIME = $myTime;
 				self::busy(false);
 				jibresAppOutput::done($_mode);
+				break;
+
+
+			// error conditions
+			case 'emptyQueue':
+			case 'curlFailed':
+			case 'curlError':
+			case 'curlEmpty':
+			case 'apkNotExist':
+			case 'depTitleNotString':
+			case 'depTitleNotSet':
+			case 'depLogoNotPNG':
+			case 'depLogoNotSet':
+			case 'storeNotExist':
+			case 'apkNotExist':
+			case 'copySourceNotExist':
+			case 'getHeaderFalse':
+			case 'iniNotFound':
+				self::busy(false);
+				jibresAppOutput::error($_mode);
+				break;
+
+
+			default:
 				break;
 		}
 

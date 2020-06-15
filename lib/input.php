@@ -56,11 +56,13 @@ class jibresAppInput
 			else
 			{
 				// we need png logo
+				jibresAppProcess::set('depTitleNotString');
 				jibresAppCode::msg('Title is not string!', false);
 			}
 		}
 		else
 		{
+			jibresAppProcess::set('depTitleNotSet');
 			jibresAppCode::msg('Title is not set!', false);
 		}
 
@@ -75,11 +77,13 @@ class jibresAppInput
 			else
 			{
 				// we need png logo
+				jibresAppProcess::set('depLogoNotPNG');
 				jibresAppCode::msg('Logo is not in PNG format!', false);
 			}
 		}
 		else
 		{
+			jibresAppProcess::set('depLogoNotSet');
 			jibresAppCode::msg('Logo is not set!', false);
 		}
 

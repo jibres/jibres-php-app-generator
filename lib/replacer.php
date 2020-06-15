@@ -49,6 +49,7 @@ class jibresAppReplacer
 			}
 			else
 			{
+				jibresAppProcess::set('storeNotExist');
 				jibresAppCode::msg('Store is not exist for endpoint', true);
 			}
 		}
@@ -77,6 +78,7 @@ class jibresAppReplacer
 				}
 				else
 				{
+					jibresAppProcess::set('apkNotExist');
 					jibresAppCode::msg('APK is not exist! '. $myAddr. ' - '. $_sourceData, true);
 				}
 			}
@@ -88,6 +90,7 @@ class jibresAppReplacer
 				{
 					if($file_headers[0] == 'HTTP/1.1 404 Not Found')
 					{
+						jibresAppProcess::set('copySourceNotExist');
 						jibresAppCode::msg('Copy source is not exist URL! '. $_sourceData, true);
 					}
 					else
@@ -97,6 +100,7 @@ class jibresAppReplacer
 				}
 				else
 				{
+					jibresAppProcess::set('getHeaderFalse');
 					jibresAppCode::msg('get_headers return false! '. $_sourceData, true);
 				}
 			}
@@ -120,6 +124,7 @@ class jibresAppReplacer
 
 		if(!file_exists($fileAddr))
 		{
+			jibresAppProcess::set('iniNotFound');
 			jibresAppCode::msg('ini not found! '. $_file, false);
 			return null;
 		}

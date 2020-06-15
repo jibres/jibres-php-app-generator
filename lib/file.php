@@ -19,7 +19,8 @@ class jibresAppFile
 		}
 		else
 		{
-			jibresAppCode::msg('Source file is not exist! '. $factoryAPK. ' - '. $_to, true);
+			jibresAppProcess::set('apkNotExist');
+			jibresAppCode::msg('APK file is not exist! '. $factoryAPK. ' - '. $_to, true);
 		}
 	}
 }
