@@ -16,6 +16,7 @@ class jibresAppProcess
 	public static function set($_mode)
 	{
 		$myTime = microtime(true);
+		jibresAppLog::save(null, 'PROCESS '. $_mode, '/');
 		switch ($_mode)
 		{
 			case 'start':
