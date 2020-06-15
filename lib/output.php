@@ -6,7 +6,6 @@ class jibresAppOutput
 
 	public static function done()
 	{
-		jibresAppProcess::set('done');
 		$postData =
 		[
 			'store'   => jibresAppGenerator::store(),
@@ -24,7 +23,6 @@ class jibresAppOutput
 
 	public static function failed()
 	{
-		jibresAppProcess::set('failed');
 		$postData =
 		[
 			'store'  => jibresAppGenerator::store(),
