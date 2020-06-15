@@ -17,6 +17,7 @@ class jibresAppOutput
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 
 		// show msg
+		jibresAppLog::save($postData, 'Done');
 		jibresAppCode::msg($postData);
 	}
 
@@ -34,6 +35,7 @@ class jibresAppOutput
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 
 		// show msg
+		jibresAppLog::save($postData, 'Fail');
 		jibresAppCode::msg($postData, false);
 	}
 }

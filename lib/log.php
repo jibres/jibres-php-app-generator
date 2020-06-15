@@ -25,11 +25,17 @@ class jibresAppLog
 		}
 		if($_data)
 		{
-			$myData .= $_data;
+			if(is_array($_data))
+			{
+				$myData = json_encode($_data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+			}
+			else
+			{
+				$myData .= $_data;
+			}
 		}
 
 		error_log($myData, 3, $logFile. '.log');
-
 	}
 }
 ?>
