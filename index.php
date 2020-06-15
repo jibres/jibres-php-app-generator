@@ -15,6 +15,7 @@ class jibresAppGenerator
 	private static $API_DATA      = null;
 	private static $VERSION_MAJOR = 1;
 	public static  $VERSION_BUILD = 0;
+	public static  $RELEASE_PATH  = null;
 
 
 	public static function run()
@@ -54,34 +55,41 @@ class jibresAppGenerator
 		jibresAppCode::process('build');
 
 		// 4. copy apk
-		// $myVersion = 'jibres-'.self::store(). '-v'. self::version(). '.apk';
-		$myVersion = 'jibres';
-		if(self::store())
-		{
-			$myVersion .= '-'. self::store();
-		}
-		if(self::version())
-		{
-			$myVersion .= '-v'. self::version();
-		}
-		$myVersion .= '.apk';
-
-		// remove $ from fileName
-		$myVersion = str_replace('$', '', $myVersion);
-		$path = 'v'. self::version(true). '/'. date("Ymd"). '/'. $myVersion;
-
-		// $myTarget  = __DIR__. '/public_html/'. $myVersion;
+		$path = 'v'. self::version(true). '/'. date("Ymd"). '/'. self::apkFileName();
 		$myTarget  = __DIR__. '/public_html/'. $path;
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
 
 		// 5. call finish
-		jibresAppOutput::done(self::store(), $myVersion, $path);
+		jibresAppOutput::done(self::store(), self::apkFileName(), $path);
 
 		// 6. free busy mode
 		jibresAppCode::busy(false);
 
 		// 7. show finish message
 		jibresAppCode::msg('Finish Successfull', true);
+	}
+
+
+	public static function apkFileName($_removeEXT = null)
+	{
+		$myName = 'jibres';
+		if(self::store())
+		{
+			$myName .= '-'. self::store();
+		}
+		if(self::version())
+		{
+			$myName .= '-v'. self::version();
+		}
+		// remove $ from fileName
+		$myName = str_replace('$', '', $myName);
+
+		if(!$_removeEXT)
+		{
+			$myName .= '.apk';
+		}
+
+		return $myName;
 	}
 
 
