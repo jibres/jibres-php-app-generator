@@ -15,19 +15,19 @@ class jibresAppInput
 			if($myStoreID === '$jb2jw')
 			{
 				// this is jibres store!
-				jibresAppGenerator::STORE(null);
+				jibresAppGenerator::store(null);
 				$endPoint = jibresAppReplacer::endpoint(null);
 			}
 			else
 			{
 				// normal store
-				jibresAppGenerator::STORE($myStoreID);
+				jibresAppGenerator::store($myStoreID);
 				$endPoint = jibresAppReplacer::endpoint(true, $myStoreID);
 			}
 		}
 		elseif(isset($myStore['result']['jibres']) && $myStore['result']['jibres'] === true)
 		{
-			jibresAppGenerator::STORE(null);
+			jibresAppGenerator::store(null);
 			$endPoint = jibresAppReplacer::endpoint(null);
 		}
 		else

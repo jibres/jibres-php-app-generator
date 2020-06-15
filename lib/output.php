@@ -9,7 +9,7 @@ class jibresAppOutput
 		$postData =
 		[
 			'status'  => 'done',
-			'store'   => jibresAppGenerator::store(),
+			'store'   => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
 			'path'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(),
 			'meta'    => jibresAppProcess::get(),
@@ -27,7 +27,7 @@ class jibresAppOutput
 		$postData =
 		[
 			'status' => 'failed',
-			'store'  => jibresAppGenerator::store(),
+			'store'  => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
 			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
 
@@ -38,5 +38,6 @@ class jibresAppOutput
 		jibresAppLog::save($postData, 'Fail');
 		jibresAppCode::msg($postData, false);
 	}
+
 }
 ?>

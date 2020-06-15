@@ -117,6 +117,18 @@ class jibresAppGenerator
 	}
 
 
+	public static function store_code()
+	{
+		$myStore = self::store();
+		if($myStore === 'jibres')
+		{
+			$myStore = 'jb2jw';
+		}
+
+		return $myStore;
+	}
+
+
 	public static function store($_store = false)
 	{
 		if($_store !== false)
