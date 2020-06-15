@@ -4,7 +4,7 @@ class jibresAppOutput
 {
 
 
-	public static function done()
+	public static function done($_mode = null)
 	{
 		$postData =
 		[
@@ -12,7 +12,7 @@ class jibresAppOutput
 			'store'   => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
 			'path'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(),
-			'meta'    => jibresAppProcess::get(),
+			'meta'    => jibresAppProcess::get(). ' *** '. $_mode,
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
 

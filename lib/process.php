@@ -50,9 +50,10 @@ class jibresAppProcess
 
 
 			case 'finish':
+			case 'emptyQueue':
 				self::$FINISH_TIME = $myTime;
 				self::busy(false);
-				jibresAppOutput::done();
+				jibresAppOutput::done($_mode);
 				break;
 		}
 

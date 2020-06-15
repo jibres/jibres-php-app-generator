@@ -32,6 +32,7 @@ class jibresAppInput
 		}
 		else
 		{
+			jibresAppProcess::set('emptyQueue');
 			jibresAppCode::msg('Queue is empty', true);
 		}
 
