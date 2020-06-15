@@ -13,7 +13,8 @@ class jibresAppLog
 		if($_type === true)
 		{
 			$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
-			error_log("\n-------\n".$_data, 3, $logFolder. $fileName. '.log');
+			$logFile = jibresAppGenerator::path_loc(). jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true);
+			error_log("\n-------\n".$_data, 3, $logFile. '.log');
 		}
 		elseif($_type)
 		{
