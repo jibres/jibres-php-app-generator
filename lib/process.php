@@ -41,9 +41,10 @@ class jibresAppProcess
 
 
 			case 'failed':
+			case 'failedError':
 				self::$FAILED_TIME = $myTime;
 				self::busy(false);
-				jibresAppOutput::failed();
+				jibresAppOutput::failed($_mode);
 				break;
 
 
@@ -58,7 +59,7 @@ class jibresAppProcess
 	}
 
 
-	public static function get($_start = null, $_txt = null)
+	public static function get()
 	{
 		if(self::$PROCESS)
 		{
@@ -88,10 +89,6 @@ class jibresAppProcess
 		{
 			$msg .= ' --Store '. jibresAppGenerator::store();
 			$msg .= ' --Version '. jibresAppGenerator::version();
-		}
-		if($_txt)
-		{
-			$msg .= " -- ". $_txt. " ***";
 		}
 
 		self::$PROCESS = $msg;

@@ -21,14 +21,14 @@ class jibresAppOutput
 	}
 
 
-	public static function failed()
+	public static function failed($_mode = null)
 	{
 		$postData =
 		[
 			'status' => 'failed',
 			'store'  => jibresAppGenerator::store(),
 			'version' => jibresAppGenerator::apkFileName(),
-			'meta'   => jibresAppProcess::get(). ' *** BUILD FAILED!',
+			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
 
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
