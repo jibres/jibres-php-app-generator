@@ -1,12 +1,16 @@
 <?php
 
-require_once "lib/code.php";
 require_once "lib/input.php";
 require_once "lib/output.php";
 require_once "lib/replacer.php";
+
 require_once "lib/exec.php";
 require_once "lib/cmd.php";
+
+require_once "lib/code.php";
+require_once "lib/file.php";
 require_once "lib/log.php";
+require_once "lib/process.php";
 
 
 class jibresAppGenerator
@@ -55,12 +59,11 @@ class jibresAppGenerator
 		jibresAppCode::process('build');
 
 		// 4. copy apk
-		$path = self::path_folder(). self::apkFileName();
-		$facotryAPK = '/app/build/outputs/apk/release/app-release.apk';
-		jibresAppReplacer::fill($facotryAPK, self::path_loc(). $path, 'apk');
+		$apkReleaseLoc = self::path_loc(). self::path_folder(). self::apkFileName();
+		jibresAppFile::copyAPK($apkReleaseLoc);
 
 		// 5. call finish
-		jibresAppOutput::done(self::store(), self::apkFileName(), $path);
+		jibresAppOutput::done(self::store(), self::apkFileName(), self::path_folder(). self::apkFileName());
 
 		// 6. free busy mode
 		jibresAppCode::busy(false);
