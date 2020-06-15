@@ -12,6 +12,7 @@ class jibresAppOutput
 			'store'   => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
 			'path'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(),
+			'log'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true). '.log',
 			'meta'    => jibresAppProcess::get(). ' *** '. $_mode,
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
@@ -29,6 +30,7 @@ class jibresAppOutput
 			'status' => 'failed',
 			'store'  => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
+			'log'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true). '.log',
 			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
 
 		];
@@ -47,6 +49,7 @@ class jibresAppOutput
 			'status' => 'error',
 			'store'  => jibresAppGenerator::store_code(),
 			'version' => jibresAppGenerator::apkFileName(),
+			'log'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true). '.log',
 			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
 
 		];
