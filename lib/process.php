@@ -63,7 +63,7 @@ class jibresAppProcess
 	{
 		if(self::$PROCESS)
 		{
-			jibresAppLog::save(self::$PROCESS, 'process');
+			jibresAppLog::save(self::$PROCESS, 'PROCESS');
 			return true;
 		}
 

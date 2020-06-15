@@ -2,7 +2,7 @@
 
 class jibresAppLog
 {
-	public static function save($_data, $_type = null)
+	public static function save($_data, $_title = true)
 	{
 		$logFolder = THIS. "/tmp/log/";
 		if (!is_dir($logFolder))
@@ -10,20 +10,20 @@ class jibresAppLog
 			// dir doesn't exist, make it
 			mkdir($logFolder, 0775, true);
 		}
-		if($_type === true)
+
+		$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
+		$logFile = jibresAppGenerator::path_loc(). jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true);
+
+		$myData = "\n-------\n";
+		if($_title)
 		{
-			$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
-			$logFile = jibresAppGenerator::path_loc(). jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true);
-			error_log("\n-------\n".$_data, 3, $logFile. '.log');
+			$myData .= str_repeat('*', 50). " ". $_title. "\n";
+
 		}
-		elseif($_type)
-		{
-			error_log("\n".$_data, 3, $logFolder. $_type. '.log');
-		}
-		else
-		{
-			error_log("\n".$_data, 3, $logFolder. "access.log");
-		}
+		$myData .= $_data;
+
+		error_log($myData, 3, $logFile. '.log');
+
 	}
 }
 ?>

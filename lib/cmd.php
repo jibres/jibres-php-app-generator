@@ -8,7 +8,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./appBuildCmd.jibres.sh';
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
-		jibresAppLog::save($output, true);
+		jibresAppLog::save($output, __FUNCTION__);
 	}
 
 
@@ -17,7 +17,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew --stop';
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
-		jibresAppLog::save($output, true);
+		jibresAppLog::save($output, __FUNCTION__);
 		return true;
 	}
 
@@ -27,7 +27,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew clean';
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
-		jibresAppLog::save($output, true);
+		jibresAppLog::save($output, __FUNCTION__);
 		return self::checkSuccess($output);
 	}
 
@@ -37,7 +37,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew build';
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
-		jibresAppLog::save($output, true);
+		jibresAppLog::save($output, __FUNCTION__);
 		return self::checkSuccess($output);
 	}
 
@@ -47,7 +47,7 @@ class jibresAppCmd
 		$cmd_runGradle = 'cd '.APP_FOLDER. ' && ./gradlew assembleRelease';
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
-		jibresAppLog::save($output, true);
+		jibresAppLog::save($output, __FUNCTION__);
 		return self::checkSuccess($output);
 	}
 
@@ -71,14 +71,14 @@ class jibresAppCmd
 		}
 		else if(strpos($_response, 'FAILURE: Build failed with an exception.') !== false)
 		{
-			jibresAppLog::save('********** Build Failed Exception DETECTED', true);
+			jibresAppLog::save('********** Build Failed Exception DETECTED', 'Build Failed Exception!!');
 			jibresAppProcess::set('failedError');
 		}
 		else if(strpos($_response, 'BUILD FAILED in') !== false)
 		{
 			// build failed
 			// BUILD FAILED in 2m 4s
-			jibresAppLog::save('********** Build Failed DETECTED', true);
+			jibresAppLog::save('********** Build Failed DETECTED', 'Build Failed!');
 			jibresAppProcess::set('failed');
 		}
 
