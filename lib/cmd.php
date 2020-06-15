@@ -69,6 +69,7 @@ class jibresAppCmd
 		// build failed
 		// BUILD FAILED in 2m 4s
 		jibresAppLog::save('Build Failed', false);
+		jibresAppProcess::set('failed');
 		return false;
 	}
 }

@@ -3,15 +3,8 @@
 
 class jibresAppCode
 {
-	public static function msg($_txt = null, $_status)
+	public static function msg($_txt = null, $_status = true)
 	{
-		jibresAppProcess::set(null, $_txt);
-
-		if($_status !== true)
-		{
-			jibresAppOutput::failed($_txt, $_status);
-		}
-
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);
 	}
 

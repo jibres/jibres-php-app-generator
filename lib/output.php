@@ -4,31 +4,39 @@ class jibresAppOutput
 {
 
 
-	public static function done($_store, $_version, $_path)
+	public static function done()
 	{
+		jibresAppProcess::set('done');
 		$postData =
 		[
-			'store'   => $_store,
+			'store'   => jibresAppGenerator::store(),
 			'status'  => 'done',
-			'version' => $_version,
-			'path'    => $_path,
-			'meta'    => jibresAppProcess::set(),
+			'version' => jibresAppGenerator::apkFileName(),
+			'path'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(),
+			'meta'    => jibresAppProcess::get(),
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
+
+		// show msg
+		jibresAppCode::msg($postData);
 	}
 
 
-	public static function failed($_txt = null, $_status)
+	public static function failed()
 	{
+		jibresAppProcess::set('failed');
 		$postData =
 		[
 			'store'  => jibresAppGenerator::store(),
 			'status' => 'failed',
-			'ok'     => $_status,
-			'meta'   => jibresAppProcess::set(). ' ***'. $_txt,
+			'ok'     => false,
+			'meta'   => jibresAppProcess::get(). ' *** BUILD FAILED!',
 
 		];
 		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
+
+		// show msg
+		jibresAppCode::msg($postData, false);
 	}
 }
 ?>

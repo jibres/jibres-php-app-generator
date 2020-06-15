@@ -2,19 +2,63 @@
 
 class jibresAppProcess
 {
-	private static $START_TIME = null;
-	private static $FETCH_TIME = null;
-	private static $CLEAN_TIME = null;
-	private static $BUILD_TIME = null;
-	private static $PROCESS    = null;
+	private static $START_TIME  = null;
+	private static $FETCH_TIME  = null;
+	private static $STOP_TIME   = null;
+	private static $CLEAN_TIME  = null;
+	private static $BUILD_TIME  = null;
+	private static $FINISH_TIME = null;
+	private static $DONE_TIME   = null;
+	private static $FAILED_TIME = null;
+	private static $PROCESS     = null;
 
 
-	public static function get()
+	public static function set($_mode)
 	{
+		$myTime = microtime(true);
+		switch ($_mode)
+		{
+			case 'start':
+				self::$START_TIME = $myTime;
+				self::busy(true);
+				break;
 
+			case 'fetch':
+				self::$FETCH_TIME = $myTime;
+				break;
+
+			case 'stop':
+				self::$STOP_TIME = $myTime;
+				break;
+
+			case 'clean':
+				self::$CLEAN_TIME = $myTime;
+				break;
+
+			case 'build':
+				self::$BUILD_TIME = $myTime;
+				break;
+
+
+			case 'failed':
+				self::$FAILED_TIME = $myTime;
+				self::busy(false);
+				jibresAppOutput::failed();
+				break;
+
+
+			case 'finish':
+				self::$FINISH_TIME = $myTime;
+				self::busy(false);
+				jibresAppOutput::done();
+				break;
+		}
+
+		return;
 	}
 
-	public static function set($_start = null, $_txt = null)
+
+	public static function get($_start = null, $_txt = null)
 	{
 		if(self::$PROCESS)
 		{
@@ -22,28 +66,6 @@ class jibresAppProcess
 			return true;
 		}
 
-		if($_start)
-		{
-			switch ($_start)
-			{
-				case 'start':
-					self::$START_TIME = microtime(true);
-					break;
-
-				case 'fetch':
-					self::$FETCH_TIME = microtime(true);
-					break;
-
-				case 'clean':
-					self::$CLEAN_TIME = microtime(true);
-					break;
-
-				case 'build':
-					self::$BUILD_TIME = microtime(true);
-					break;
-			}
-			return;
-		}
 		else
 		{
 			self::busy(false);
