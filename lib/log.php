@@ -4,23 +4,24 @@ class jibresAppLog
 {
 	public static function save($_data, $_type = null)
 	{
-		if (!is_dir(THIS. "/tmp/log/"))
+		$logFolder = THIS. "/tmp/log/";
+		if (!is_dir($logFolder))
 		{
 			// dir doesn't exist, make it
-			mkdir(THIS. "/tmp/log/", 0775, true);
+			mkdir($logFolder, 0775, true);
 		}
 		if($_type === true)
 		{
 			$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
-			error_log("\n-------\n".$_data, 3, THIS. "/tmp/log/". $fileName. '.log');
+			error_log("\n-------\n".$_data, 3, $logFolder. $fileName. '.log');
 		}
 		elseif($_type)
 		{
-			error_log("\n".$_data, 3, THIS. "/tmp/log/". $_type. '.log');
+			error_log("\n".$_data, 3, $logFolder. $_type. '.log');
 		}
 		else
 		{
-			error_log("\n".$_data, 3, THIS. "/tmp/log/access.log");
+			error_log("\n".$_data, 3, $logFolder. "access.log");
 		}
 	}
 }

@@ -18,7 +18,7 @@ class jibresAppCmd
 		$output = null;
 		$output = shell_exec($cmd_runGradle);
 		jibresAppLog::save($output, true);
-		return self::checkSuccess($output);
+		return true;
 	}
 
 
@@ -71,14 +71,14 @@ class jibresAppCmd
 		}
 		else if(strpos($_response, 'FAILURE: Build failed with an exception.') !== false)
 		{
-			jibresAppLog::save('Build Failed Error', false);
+			jibresAppLog::save('********** Build Failed Exception DETECTED', false);
 			jibresAppProcess::set('failedError');
 		}
 		else if(strpos($_response, 'BUILD FAILED in') !== false)
 		{
 			// build failed
 			// BUILD FAILED in 2m 4s
-			jibresAppLog::save('Build Failed', false);
+			jibresAppLog::save('********** Build Failed DETECTED', false);
 			jibresAppProcess::set('failed');
 		}
 
