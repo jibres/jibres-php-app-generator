@@ -23,7 +23,7 @@ class jibresAppCode
 
 		if($_status !== true)
 		{
-			jibresAppFetcher::failed($_txt, $_status);
+			jibresAppOutput::failed($_txt, $_status);
 		}
 
 		self::jsonBoom(['ok'=> $_status, 'msg'=> [$_txt]]);

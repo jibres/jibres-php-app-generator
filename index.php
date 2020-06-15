@@ -5,6 +5,8 @@ require_once "lib/code.php";
 require_once "lib/replacer.php";
 require_once "lib/exec.php";
 require_once "lib/cmd.php";
+require_once "lib/output.php";
+
 
 class jibresAppGenerator
 {
@@ -73,7 +75,7 @@ class jibresAppGenerator
 		jibresAppReplacer::fill('/app/build/outputs/apk/release/app-release.apk', $myTarget, 'apk');
 
 		// 5. call finish
-		jibresAppFetcher::done(self::store(), $myVersion, $path);
+		jibresAppOutput::done(self::store(), $myVersion, $path);
 
 		// 6. free busy mode
 		jibresAppCode::busy(false);
