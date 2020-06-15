@@ -9,10 +9,8 @@ class jibresAppCode
 	}
 
 
-	public static function jsonBoom($_result = null)
+	private static function jsonBoom($_result = null)
 	{
-		jibresAppProcess::busy(false);
-
 		if(is_array($_result))
 		{
 			$_result = json_encode($_result, JSON_UNESCAPED_UNICODE);
@@ -27,7 +25,7 @@ class jibresAppCode
 	}
 
 
-	public static function boboom($_string = null)
+	private static function boboom($_string = null)
 	{
 		// change header
 		exit($_string);

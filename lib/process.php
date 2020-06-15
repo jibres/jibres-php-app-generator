@@ -66,11 +66,6 @@ class jibresAppProcess
 			return true;
 		}
 
-		else
-		{
-			self::busy(false);
-		}
-
 		// log end process
 		$endTime = microtime(true);
 		$msg = '';
@@ -132,7 +127,7 @@ class jibresAppProcess
 			else
 			{
 				// we are busy from last operation
-				jibresAppCode::jsonBoom(['ok'=> false, 'msg'=> ['We are busy from last operation']]);
+				jibresAppCode::msg('We are busy from last operation', false);
 			}
 		}
 		else

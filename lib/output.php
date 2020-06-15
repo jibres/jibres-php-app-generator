@@ -8,8 +8,8 @@ class jibresAppOutput
 	{
 		$postData =
 		[
-			'store'   => jibresAppGenerator::store(),
 			'status'  => 'done',
+			'store'   => jibresAppGenerator::store(),
 			'version' => jibresAppGenerator::apkFileName(),
 			'path'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(),
 			'meta'    => jibresAppProcess::get(),
@@ -25,9 +25,9 @@ class jibresAppOutput
 	{
 		$postData =
 		[
-			'store'  => jibresAppGenerator::store(),
 			'status' => 'failed',
-			'ok'     => false,
+			'store'  => jibresAppGenerator::store(),
+			'version' => jibresAppGenerator::apkFileName(),
 			'meta'   => jibresAppProcess::get(). ' *** BUILD FAILED!',
 
 		];

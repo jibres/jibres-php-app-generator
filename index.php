@@ -80,7 +80,7 @@ class jibresAppGenerator
 	public static function apkFileName($_removeEXT = null)
 	{
 		$myName = 'jibres';
-		if(self::store())
+		if(self::store() && self::store() !== 'jibres')
 		{
 			$myName .= '-'. self::store();
 		}
