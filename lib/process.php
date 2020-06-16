@@ -55,8 +55,14 @@ class jibresAppProcess
 				break;
 
 
-			// error conditions
+			// info conditions
 			case 'emptyQueue':
+				self::busy(false);
+				jibresAppOutput::info($_mode);
+				break;
+
+
+			// error conditions
 			case 'curlFailed':
 			case 'curlError':
 			case 'curlEmpty':

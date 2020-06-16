@@ -59,5 +59,22 @@ class jibresAppOutput
 		jibresAppLog::save($postData, 'Error');
 	}
 
+
+	public static function info($_mode = null)
+	{
+		$postData =
+		[
+			'status' => 'info',
+			'store'  => jibresAppGenerator::store_code(),
+			'version' => jibresAppGenerator::apkFileName(),
+			'log'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true). '.log',
+			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
+
+		];
+		jibresAppExec::send('https://core.jibres.ir/r10/queue/app', true, $postData);
+
+		// show msg
+		jibresAppLog::save($postData, 'Error');
+	}
 }
 ?>
