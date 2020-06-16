@@ -65,9 +65,6 @@ class jibresAppOutput
 		$postData =
 		[
 			'status' => 'info',
-			'store'  => jibresAppGenerator::store_code(),
-			'version' => jibresAppGenerator::apkFileName(),
-			'log'    => jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true). '.log',
 			'meta'   => jibresAppProcess::get(). ' *** '. $_mode,
 
 		];
