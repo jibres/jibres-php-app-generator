@@ -42,7 +42,7 @@ class jibresAppGenerator
 
 
 		// start process
-		//jibresAppProcess::set('start');
+		jibresAppProcess::set('start');
 
 		// 2. get data
 		jibresAppInput::get();
