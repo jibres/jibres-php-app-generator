@@ -4,15 +4,14 @@ class jibresAppLog
 {
 	public static function save($_data, $_title = null, $_seperator = '*')
 	{
-		$logFolder = THIS. "/tmp/log/";
-		if (!is_dir($logFolder))
-		{
-			// dir doesn't exist, make it
-			mkdir($logFolder, 0775, true);
-		}
+		// $logFolder = THIS. "/tmp/log/";
+		// $fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
 
-		$fileName = jibresAppGenerator::store(). '-'. jibresAppGenerator::version();
-		$logFile = jibresAppGenerator::path_loc(). jibresAppGenerator::path_folder(). jibresAppGenerator::apkFileName(true);
+		$logFolder = jibresAppGenerator::path_loc(). jibresAppGenerator::path_folder();
+		// create log folder if not exist
+		self::create_folder($logFolder);
+		// create file addr
+		$logFile = $logFolder. jibresAppGenerator::apkFileName(true). '.log';
 
 		$myData = "";
 		if($_title)
@@ -35,7 +34,17 @@ class jibresAppLog
 			}
 		}
 
-		error_log($myData, 3, $logFile. '.log');
+		error_log($myData, 3, $logFile);
 	}
+
+	private static function create_folder($_path)
+	{
+		if (!is_dir($_path))
+		{
+			// dir doesn't exist, make it
+			mkdir($_path, 0664, true);
+		}
+	}
+
 }
 ?>
