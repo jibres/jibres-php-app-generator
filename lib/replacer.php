@@ -4,21 +4,28 @@ class jibresAppReplacer
 {
 	public static function store($_store)
 	{
-
+		$key_mode = 'debug';
 		// create application id
-		if(!$_store)
-		{
-			self::fill('/app/src/main/assets/secret/store.txt', 'jibres');
-			$myAppID = 'com.jibres.android';
-		}
-		else
+		if($_store)
 		{
 			// fill in store id file
 			self::fill('/app/src/main/assets/secret/store.txt', $_store);
-			$myAppID = 'com.jibres.'. $_store;
+			$myAppID  = 'com.jibres.'. $_store;
+			$key_mode = 'jibres-business';
 		}
-		self::gradle('/app/gradle.properties', ['APPLICATION_ID' => $myAppID]);
+		else
+		{
+			self::fill('/app/src/main/assets/secret/store.txt', 'jibres');
+			$myAppID  = 'com.jibres';
+			$key_mode = 'jibres';
+		}
 
+		$opt =
+		[
+			'APPLICATION_ID' => $myAppID,
+			'KEY_ALIAS' => $key_mode,
+		];
+		self::gradle('/app/gradle.properties', $opt);
 	}
 
 
