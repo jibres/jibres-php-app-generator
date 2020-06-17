@@ -42,7 +42,7 @@ class jibresAppLog
 		if (!is_dir($_path))
 		{
 			// dir doesn't exist, make it
-			mkdir($_path, 0664, true);
+			mkdir($_path, 0774, true);
 		}
 	}
 
