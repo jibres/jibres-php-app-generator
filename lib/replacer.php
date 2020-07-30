@@ -36,6 +36,7 @@ class jibresAppReplacer
 		$appName .= $_name;
 		$appName .= '</string></resources>';
 		self::fill('/app/src/main/res/values/app_name.xml', $appName);
+		self::fill('/app/src/main/res/values-fa-rIR/app_name.xml', $appName);
 	}
 
 
