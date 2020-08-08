@@ -43,6 +43,8 @@ class jibresAppReplacer
 	public static function logo($_logoURL)
 	{
 		self::fill('/app/src/main/res/drawable/logo.png', $_logoURL, true);
+		self::fill('/app/src/main/res/drawable-v21/logo.png', $_logoURL, true);
+		self::fill('/app/src/main/res/drawable-v24/logo.png', $_logoURL, true);
 	}
 
 
