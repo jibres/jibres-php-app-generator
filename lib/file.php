@@ -17,6 +17,9 @@ class jibresAppFile
 			}
 			// copy file
 			copy($factoryAPK, $_to);
+
+			// remove from app creator to prevent bug of compile error, use old app
+			unlink($factoryAPK);
 		}
 		else
 		{
